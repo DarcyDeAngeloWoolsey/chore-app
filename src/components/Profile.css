@@ -1,0 +1,22 @@
+.
+
+.profile-level-title {
+  transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  -webkit-transform: translateY(50%);
+  -moz-transform: translateY(50%);
+}
+
+.profile-avatar-div {
+
+  display: inline-block;
+  float: left;
+}
+
+.profile-avatar {
+    height: 80px;
+}
+
+.profile-level-div {
+  display: inline-block;
+}
