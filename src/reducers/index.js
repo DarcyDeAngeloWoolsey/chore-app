@@ -10,7 +10,7 @@ const initialState = {
   {
     choreDate: 'January 22 2018',
     choreType: 'Take out Trash',
-    choreBanking: 'Credit',
+    choreBanking: 'Deposit',
     choreAmount: 3.00
   }
 ]

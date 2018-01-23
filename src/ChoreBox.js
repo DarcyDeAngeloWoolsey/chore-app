@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Profile from './components/Profile';
 import Chores from './components/Chores';
-import ChoreUpdate from './components/ChoreUpdate';
+
 
 export default class ChoreBox extends Component {
 
@@ -19,9 +19,7 @@ export default class ChoreBox extends Component {
         <div className="chores">
           <Chores />
         </div>
-        <div className="chore-update">
-          <ChoreUpdate />
-        </div>
+
       </div>
 
     );

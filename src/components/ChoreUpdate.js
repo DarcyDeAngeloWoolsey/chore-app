@@ -4,7 +4,15 @@ import './ChoreUpdate.css';
 
 class ChoreUpdate extends Component {
 
-
+handleSubmit(event) {
+  event.preventDefault();
+  let choreDate = this.choreDate;
+  let choreType = this.choreType;
+  let choreBanking = "Deposit";
+  let choreAmount = this.choreAmount;
+  this.props.addChore(choreDate.value, choreType.value.trim(), choreBanking, choreAmount.value.trim());
+  console.log(choreDate.value, choreType.value.trim(), choreBanking, choreAmount.value);
+}
 
   render() {
     return (
@@ -16,21 +24,21 @@ class ChoreUpdate extends Component {
         </header>
         <div className="chore-update-div">
           <h4 className="chores-section-title left">Add A Chore</h4>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="col-3 col-12-xs inline-block">
-              <lable for="date">Date</lable>
+              <label htmlFor="date">Date</label>
               <br/>
-              <input type="text" name="date" value="" placeholder="1/1/1900" ref={input => this.textInput = input} />
+              <input type="date" name="date" placeholder="1/1/1900" ref={input => (this.choreDate = input)} />
             </div>
             <div className="col-3 col-12-xs inline-block">
-              <lable for="chore">Chore</lable>
+              <label htmlFor="chore">Chore</label>
               <br/>
-              <input type="text" name="chore" value="" placeholder="Wash Dishes" ref={input => this.textInput = input} />
+              <input type="text" name="chore" placeholder="Wash Dishes" ref={input => (this.choreType = input)} />
             </div>
             <div className="col-3 col-12-xs inline-block">
-              <lable for="deposit">Deposit Amount</lable>
+              <label htmlFor="deposit">Deposit Amount</label>
               <br/>
-              <input type="text" name="deposit" value="" placeholder="1.00" ref={input => this.textInput = input} />
+              <input type="text" name="deposit" placeholder="1.00" ref={input => (this.choreAmount = input)} />
             </div>
             <div className="col-3 col-12-xs inline-block">
               <input type="submit" value="Submit" />
@@ -41,7 +49,7 @@ class ChoreUpdate extends Component {
           <h4 className="chores-section-title left">Withdraw Money</h4>
           <form className="left">
               <div className="col-3 col-12-xs inline-block">
-                <lable for="deposit">Withdrawl Amount</lable>
+                <label htmlFor="deposit">Withdrawl Amount</label>
                 <br/>
                 <input type="text" name="deposit" value="" placeholder="1.00" />
               </div>
