@@ -1,19 +1,7 @@
 import * as actions from '../actions/index';
 
 const initialState = {
-  choreList: [{
-    choreDate: 'January 21 2018',
-    choreType: 'Wash Dishes',
-    choreBanking: 'Credit',
-    choreAmount: 5.00
-  },
-  {
-    choreDate: 'January 22 2018',
-    choreType: 'Take out Trash',
-    choreBanking: 'Deposit',
-    choreAmount: 3.00
-  }
-]
+  choreList: []
 };
 
 export const addChoreReducer = (state=initialState, action) => {
@@ -28,6 +16,8 @@ export const addChoreReducer = (state=initialState, action) => {
          });
 
     }
-
+    else if (action.type === actions.FETCH_CHORES_SUCCESS) {
+        return action.Chores;
+    }
     return state;
 };

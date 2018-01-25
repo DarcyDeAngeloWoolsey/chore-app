@@ -6,10 +6,13 @@ class ChoreUpdate extends Component {
 
 handleSubmit(event) {
   event.preventDefault();
+
   let choreDate = this.choreDate;
   let choreType = this.choreType;
   let choreBanking = "Deposit";
   let choreAmount = this.choreAmount;
+
+
   this.props.addChore(choreDate.value, choreType.value.trim(), choreBanking, choreAmount.value.trim());
   console.log(choreDate.value, choreType.value.trim(), choreBanking, choreAmount.value);
 }
@@ -38,7 +41,7 @@ handleSubmit(event) {
             <div className="col-3 col-12-xs inline-block">
               <label htmlFor="deposit">Deposit Amount</label>
               <br/>
-              <input type="text" name="deposit" placeholder="1.00" ref={input => (this.choreAmount = input)} />
+              <input type="number" name="deposit" placeholder="1.00" ref={input => (this.choreAmount = input)} />
             </div>
             <div className="col-3 col-12-xs inline-block">
               <input type="submit" value="Submit" />

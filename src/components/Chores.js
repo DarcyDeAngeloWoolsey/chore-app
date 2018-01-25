@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import ChoresList from './ChoresList';
 import ChoreUpdate from './ChoreUpdate';
-import {addChore} from '../actions/index';
+import {addChore, fetchChores} from '../actions/index';
 
 import './Chores.css';
 
 export class Chores extends Component {
 
-
-//we want to take the data from the child input and add it as a new object to the state in the reducer
-
-//take the old choreList array of objects and concat with the new object.
-
+  componentDidMount() {
+        this.props.dispatch(fetchChores());
+    }
 
   addChore(choreDate, choreType, choreBanking, choreAmount) {
         this.props.dispatch(addChore(choreDate, choreType, choreBanking, choreAmount));

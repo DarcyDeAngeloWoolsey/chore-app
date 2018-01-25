@@ -6,9 +6,8 @@ import ChoreBox from './ChoreBox';
 import './index.css';
 import store from './store';
 
-import registerServiceWorker from './registerServiceWorker';
+
 
 const rootEl = document.getElementById('root');
 
 ReactDOM.render( <Provider store={store}><ChoreBox /></Provider>, rootEl);
-registerServiceWorker();
