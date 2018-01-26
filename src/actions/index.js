@@ -2,12 +2,13 @@
 const {API_BASE_URL} = require('../config');
 
 export const ADD_CHORE = 'ADD_CHORE';
-export const addChore = (choreDate, choreType, choreBanking, choreAmount) => ({
+export const addChore = (choreDate, choreType, choreBanking, choreAmount, choreTotal) => ({
     type: ADD_CHORE,
     choreDate,
     choreType,
     choreBanking,
-    choreAmount
+    choreAmount,
+    choreTotal
 });
 
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ChoreUpdate.css';
+import {connect} from 'react-redux';
 
 
 class ChoreUpdate extends Component {
@@ -11,13 +12,32 @@ handleSubmit(event) {
   let choreType = this.choreType;
   let choreBanking = "Deposit";
   let choreAmount = this.choreAmount;
+  let add = parseFloat(this.choreAmount.value);
+//  let choreTotal = add.value + 1;
+console.log(add.toFixed(2) + " is a " + typeof add);
+
+  let newTotal = 0;
+
+  this.props.choreList.map((chores, index) => {
+    let unparsed = chores.choreAmount;
+    let parsed = parseFloat(unparsed);
+    newTotal = newTotal + parsed;
+    return newTotal;
+  	}
+  );
+
+  let recentTotal = newTotal + add;
+
+  console.log("this  is the recentTotal " + recentTotal + " it is a " + typeof recentTotal);
 
 
-  this.props.addChore(choreDate.value, choreType.value.trim(), choreBanking, choreAmount.value.trim());
-  console.log(choreDate.value, choreType.value.trim(), choreBanking, choreAmount.value);
+  this.props.addChore(choreDate.value, choreType.value.trim(), choreBanking, choreAmount.value.trim(), recentTotal.toFixed(2));
 }
 
   render() {
+
+
+
     return (
       <div className="box row section-border clear">
         <header className="chore-header">
@@ -66,5 +86,8 @@ handleSubmit(event) {
     );
   }
 }
+const mapStateToProps = state => ({
+    choreList: state.choreList
+});
 
-export default ChoreUpdate;
+export default connect(mapStateToProps)(ChoreUpdate);

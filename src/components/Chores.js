@@ -6,22 +6,23 @@ import {addChore, fetchChores} from '../actions/index';
 
 import './Chores.css';
 
-export class Chores extends Component {
+class Chores extends Component {
 
   componentDidMount() {
         this.props.dispatch(fetchChores());
     }
 
-  addChore(choreDate, choreType, choreBanking, choreAmount) {
-        this.props.dispatch(addChore(choreDate, choreType, choreBanking, choreAmount));
+  addChore(choreDate, choreType, choreBanking, choreAmount, choreTotal) {
+        this.props.dispatch(addChore(choreDate, choreType, choreBanking, choreAmount, choreTotal));
     }
 
   render() {
-    const choreList = this.props.choreList.map((chores, index) =>
+    const list = this.props.choreList.map((chores, index) =>
       <tbody key={index}>
         <ChoresList {...chores} />
       </tbody>
   );
+
     return (
       <div>
         <div className="chore-box row section-border clear">
@@ -41,7 +42,7 @@ export class Chores extends Component {
                   <th className="col-5">Total</th>
                 </tr>
               </tbody>
-                  {choreList}
+                  {list}
             </table>
           </div>
         </div>

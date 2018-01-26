@@ -11,7 +11,8 @@ export const addChoreReducer = (state=initialState, action) => {
                  choreDate: action.choreDate,
                  choreType: action.choreType,
                  choreBanking: action.choreBanking,
-                 choreAmount: action.choreAmount
+                 choreAmount: action.choreAmount,
+                 choreTotal: action.choreTotal
              }]
          });
 

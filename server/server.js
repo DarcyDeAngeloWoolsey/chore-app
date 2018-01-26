@@ -12,6 +12,7 @@ app.use(
     })
 );
 
+
 app.get('/api/Chores', (req, res) => {
 
     res.json({
@@ -19,13 +20,15 @@ app.get('/api/Chores', (req, res) => {
         choreDate: 'January 21 2018',
         choreType: 'Wash Dishes',
         choreBanking: 'Credit',
-        choreAmount: 5.00
+        choreAmount: 5.00,
+        choreTotal: 5.00,
       },
       {
         choreDate: 'January 22 2018',
         choreType: 'Take out Trash',
         choreBanking: 'Deposit',
-        choreAmount: 3.00
+        choreAmount: 3.00,
+        choreTotal: 8.00
       }
     ]
     });
