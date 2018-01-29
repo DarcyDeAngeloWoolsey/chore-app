@@ -5,3 +5,8 @@
 table {
   width: 100%;
 }
+
+.chore-box {
+  max-height: 50vh;
+  overflow: auto;
+}

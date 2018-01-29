@@ -19,7 +19,7 @@ app.get('/api/Chores', (req, res) => {
       choreList: [{
         choreDate: 'January 21 2018',
         choreType: 'Wash Dishes',
-        choreBanking: 'Credit',
+        choreBanking: 'Deposit',
         choreAmount: 5.00,
         choreTotal: 5.00,
       },

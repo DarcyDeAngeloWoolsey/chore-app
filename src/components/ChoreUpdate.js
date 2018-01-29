@@ -8,16 +8,25 @@ class ChoreUpdate extends Component {
 handleSubmit(event) {
   event.preventDefault();
 
-  let choreDate = this.choreDate;
-  let choreType = this.choreType;
-  let choreBanking = "Deposit";
-  let choreAmount = this.choreAmount;
+  let initChoreDate = this.choreDate.value;
+  let dateSubstring1 = initChoreDate.substr(0, 4);
+  let dateSubstring2 = (initChoreDate.substr(5, 9) + "-");
+  let choreDate = dateSubstring2.concat(dateSubstring1);
+
+  let choreType = this.choreType.value;
+  let choreBankingType = this.choreBanking.value;
+
+  let choreBanking = '';
+    if(choreBankingType === "withdrawl") {
+      choreBanking = "Withdrawl";
+      }
+    else if (choreBankingType === "deposit") {
+      choreBanking = "Deposit";
+    };
+
+  let choreAmount = this.choreAmount.value;
   let add = parseFloat(this.choreAmount.value);
-//  let choreTotal = add.value + 1;
-console.log(add.toFixed(2) + " is a " + typeof add);
-
   let newTotal = 0;
-
   this.props.choreList.map((chores, index) => {
     let unparsed = chores.choreAmount;
     let parsed = parseFloat(unparsed);
@@ -25,14 +34,13 @@ console.log(add.toFixed(2) + " is a " + typeof add);
     return newTotal;
   	}
   );
+  let choreTotal = newTotal + add;
 
-  let recentTotal = newTotal + add;
+  this.props.addChore(choreDate, choreType.trim(), choreBanking, choreAmount, choreTotal.toFixed(2));
 
-  console.log("this  is the recentTotal " + recentTotal + " it is a " + typeof recentTotal);
-
-
-  this.props.addChore(choreDate.value, choreType.value.trim(), choreBanking, choreAmount.value.trim(), recentTotal.toFixed(2));
+  document.getElementById("choreForm").reset();
 }
+
 
   render() {
 
@@ -47,39 +55,39 @@ console.log(add.toFixed(2) + " is a " + typeof add);
         </header>
         <div className="chore-update-div">
           <h4 className="chores-section-title left">Add A Chore</h4>
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form id="choreForm" onSubmit={this.handleSubmit.bind(this)}>
+
             <div className="col-3 col-12-xs inline-block">
               <label htmlFor="date">Date</label>
               <br/>
-              <input type="date" name="date" placeholder="1/1/1900" ref={input => (this.choreDate = input)} />
+            <input type="date" name="date" placeholder="1/1/1900" ref={input => (this.choreDate = input)} required/>
             </div>
+
             <div className="col-3 col-12-xs inline-block">
-              <label htmlFor="chore">Chore</label>
+              <label htmlFor="choreBanking">Deposit/Withdrawl</label>
               <br/>
-              <input type="text" name="chore" placeholder="Wash Dishes" ref={input => (this.choreType = input)} />
+              <select name="choreBanking" ref={select => (this.choreBanking = select)}>
+               <option value="deposit" selected>Deposit</option>
+               <option value="withdrawl">Withdrawl</option>
+             </select>
             </div>
+
             <div className="col-3 col-12-xs inline-block">
-              <label htmlFor="deposit">Deposit Amount</label>
+              <label htmlFor="chore">Chore/Reason</label>
               <br/>
-              <input type="number" name="deposit" placeholder="1.00" ref={input => (this.choreAmount = input)} />
+              <input type="text" name="chore" placeholder="Wash Dishes" ref={input => (this.choreType = input)} required/>
             </div>
+
+            <div className="col-3 col-12-xs inline-block">
+              <label htmlFor="amount">Amount</label>
+              <br/>
+              <input type="number" name="amount" placeholder="1.00" step=".01" ref={input => (this.choreAmount = input)} required />
+            </div>
+
             <div className="col-3 col-12-xs inline-block">
               <input type="submit" value="Submit" />
             </div>
           </form>
-        </div>
-        <div className="withdrawl-div">
-          <h4 className="chores-section-title left">Withdraw Money</h4>
-          <form className="left">
-              <div className="col-3 col-12-xs inline-block">
-                <label htmlFor="deposit">Withdrawl Amount</label>
-                <br/>
-                <input type="text" name="deposit" value="" placeholder="1.00" />
-              </div>
-              <div className="col-3 col-12-xs inline-block">
-                <input type="submit" value="Submit" />
-              </div>
-            </form>
         </div>
       </div>
 
