@@ -98,6 +98,10 @@ body {
         width: 60%;
     }
     
+    .col-2-sm {
+        width: 50%;
+    }
+    
     .left {
         text-align: left;
     }
