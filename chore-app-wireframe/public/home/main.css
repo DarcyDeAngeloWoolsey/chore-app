@@ -77,6 +77,11 @@ table {
     overflow: auto;
 }
 
+.footer {
+    position: absolute;
+    bottom: 0px;
+}
+
 .inline-block {
     display: inline-block;
 }
