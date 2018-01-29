@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <title>Chore Trek</title>
+</head>
+
+<body>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root">
+        <div class="App">
+            <header class="App-header">
+                <h1 class="App-title inline-block">ChoreTrek</h1>
+                <a class="log-link inline-block">Log out</a>
+            </header>
+            <div class="profile">
+                <div class="box row w900">
+                    <header class="profile-header">
+                        <div class="profile-avatar-div col-4-sm col-12-xs">
+                            <img src="./images/level1-icon.png" id="avatar1" class="profile-avatar" alt="avatar" />
+                        </div>
+                        <div class="profile-level-div col-6-sm col-12-xs">
+                            <h2 class="profile-level-title">Level <span>1</span></h2>
+                        </div>
+                        <div class="profile-level-div col-12-xs">
+
+                            <img src="./images/level1-icon.png" id="avatar1" class="profile-avatar" alt="avatar" />
+
+
+                            <img src="./images/Angel-icon.png" id="avatar2" class="profile-avatar" alt="avatar" />
+
+
+                            <img src="./images/Clown-icon.png" id="avatar3" class="profile-avatar" alt="avatar" />
+
+
+                            <img src="./images/Mermaid-icon.png" id="avatar4" class="profile-avatar" alt="avatar" />
+
+
+                            <img src="./images/Dragon-icon.png" id="avatar5" class="profile-avatar" alt="avatar" />
+
+                        </div>
+                    </header>
+                </div>
+            </div>
+            <div class="chores">
+                <div>
+                    <div class="chore-box row section-border clear">
+                        <header class="chore-header">
+                            <div class="chores-title-div col-12-xs">
+                                <h3 class="chores-title">Chores</h3>
+                            </div>
+                        </header>
+                        <div class="chore-traking-table-div">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th class="col-5">Date</th>
+                                        <th class="col-5">Chore</th>
+                                        <th class="col-5">Deposit/Withdrawl</th>
+                                        <th class="col-5">Amount</th>
+                                        <th class="col-5">Total</th>
+                                    </tr>
+                                </tbody>
+                                <tr class="choreList">
+                                    <td class="chore-date col-5">1-20-2018</td>
+                                    <td class="chore-type col-5">Wash Dishes</td>
+                                    <td class="chore-banking col-5">Deposit</td>
+                                    <td class="chore-amount col-5">1.00</td>
+                                    <td class="chore-total col-5">1.00</td>
+                                </tr>
+                                <tr class="choreList">
+                                    <td class="chore-date col-5">1-21-2018</td>
+                                    <td class="chore-type col-5">Trash</td>
+                                    <td class="chore-banking col-5">Deposit</td>
+                                    <td class="chore-amount col-5">1.00</td>
+                                    <td class="chore-total col-5">2.00</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="chore-update">
+                        <div class="box row section-border clear">
+                            <header class="chore-header">
+                                <div class="chores-title-div col-12-xs">
+                                    <h3 class="chores-title">Update</h3>
+                                </div>
+                            </header>
+                            <div class="chore-update-div">
+                                <h4 class="chores-section-title left">Add A Chore</h4>
+                                <form id="choreForm">
+
+                                    <div class="col-3 col-12-xs inline-block">
+                                        <label htmlFor="date">Date</label>
+                                        <br/>
+                                        <input type="date" name="date" placeholder="1/1/1900" required/>
+                                    </div>
+
+                                    <div class="col-3 col-12-xs inline-block">
+                                        <label htmlFor="choreBanking">Deposit/Withdrawl</label>
+                                        <br/>
+                                        <select name="choreBanking">
+                                            <option value="deposit" selected>Deposit</option>
+                                            <option value="withdrawl">Withdrawl</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3 col-12-xs inline-block">
+                                        <label htmlFor="chore">Chore/Reason</label>
+                                        <br/>
+                                        <input type="text" name="chore" placeholder="Wash Dishes" required/>
+                                    </div>
+
+                                    <div class="col-3 col-12-xs inline-block">
+                                        <label htmlFor="amount">Amount</label>
+                                        <br/>
+                                        <input type="number" name="amount" placeholder="1.00" step=".01" required />
+                                    </div>
+
+                                    <div class="col-3 col-12-xs inline-block">
+                                        <input type="submit" value="Submit" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <footer>
+                    <p class="footer-info">email: dmdeangelo@gmail.com</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
