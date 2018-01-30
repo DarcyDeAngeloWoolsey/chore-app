@@ -47,20 +47,21 @@ handleSubmit(event) {
 
 
     return (
-      <div className="box row section-border clear">
-        <header className="chore-header">
-          <div className="chores-title-div col-12-xs">
-            <h3 className="chores-title">Update</h3>
-          </div>
-        </header>
+      <div className="box row">
         <div className="chore-update-div">
-          <h4 className="chores-section-title left">Add A Chore</h4>
+          <h4 className="chores-section-title left">Add An Update</h4>
         <form id="choreForm" onSubmit={this.handleSubmit.bind(this)}>
 
             <div className="col-3 col-12-xs inline-block">
               <label htmlFor="date">Date</label>
               <br/>
             <input type="date" name="date" placeholder="1/1/1900" ref={input => (this.choreDate = input)} required/>
+            </div>
+
+            <div className="col-3 col-12-xs inline-block">
+              <label htmlFor="chore">Chore/Reason</label>
+              <br/>
+              <input type="text" name="chore" placeholder="Wash Dishes" ref={input => (this.choreType = input)} required/>
             </div>
 
             <div className="col-3 col-12-xs inline-block">
@@ -73,17 +74,10 @@ handleSubmit(event) {
             </div>
 
             <div className="col-3 col-12-xs inline-block">
-              <label htmlFor="chore">Chore/Reason</label>
-              <br/>
-              <input type="text" name="chore" placeholder="Wash Dishes" ref={input => (this.choreType = input)} required/>
-            </div>
-
-            <div className="col-3 col-12-xs inline-block">
               <label htmlFor="amount">Amount</label>
               <br/>
               <input type="number" name="amount" placeholder="1.00" step=".01" ref={input => (this.choreAmount = input)} required />
             </div>
-
             <div className="col-3 col-12-xs inline-block">
               <input type="submit" value="Submit" />
             </div>

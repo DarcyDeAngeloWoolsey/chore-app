@@ -10,7 +10,7 @@
   height: 80px;
 }
 
-.App-header {
+.App-header, .footer {
   background-color: teal;
   height: 50px;
   padding: 10px;
@@ -29,6 +29,19 @@
 
 .App-intro {
   font-size: large;
+}
+
+.chores {
+  min-height: 60vh;
+}
+
+.profile, .footer {
+  min-height: 20vh;
+}
+
+.log-link, .profile-name  {
+    position: absolute;
+    right: 5px;
 }
 
 .box {
