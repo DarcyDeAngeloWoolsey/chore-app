@@ -25,7 +25,7 @@ class Chores extends Component {
 
     return (
       <div>
-        <div className="chore-box row section-border clear">
+        <div className="chore-box box row section-border clear">
           <header className="chore-header">
             <div className="chores-title-div col-12-xs">
               <h3 className="chores-title">Chores</h3>
@@ -49,7 +49,7 @@ class Chores extends Component {
         <div className="chore-update">
           <ChoreUpdate addChore={this.addChore.bind(this)}/>
         </div>
-      </div>
+    </div>
 
     );
   }

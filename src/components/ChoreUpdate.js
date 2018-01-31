@@ -49,22 +49,22 @@ handleSubmit(event) {
     return (
       <div className="box row">
         <div className="chore-update-div">
-          <h4 className="chores-section-title left">Add An Update</h4>
+          <h4 className="chores-section-title">Add An Update</h4>
         <form id="choreForm" onSubmit={this.handleSubmit.bind(this)}>
 
-            <div className="col-3 col-12-xs inline-block">
+            <div className="col-5 col-12-xs inline-block">
               <label htmlFor="date">Date</label>
               <br/>
             <input type="date" name="date" placeholder="1/1/1900" ref={input => (this.choreDate = input)} required/>
             </div>
 
-            <div className="col-3 col-12-xs inline-block">
+            <div className="col-5 col-12-xs inline-block">
               <label htmlFor="chore">Chore/Reason</label>
               <br/>
               <input type="text" name="chore" placeholder="Wash Dishes" ref={input => (this.choreType = input)} required/>
             </div>
 
-            <div className="col-3 col-12-xs inline-block">
+            <div className="col-5 col-12-xs inline-block">
               <label htmlFor="choreBanking">Deposit/Withdrawl</label>
               <br/>
               <select name="choreBanking" ref={select => (this.choreBanking = select)}>
@@ -73,12 +73,12 @@ handleSubmit(event) {
              </select>
             </div>
 
-            <div className="col-3 col-12-xs inline-block">
+            <div className="col-5 col-12-xs inline-block">
               <label htmlFor="amount">Amount</label>
               <br/>
               <input type="number" name="amount" placeholder="1.00" step=".01" ref={input => (this.choreAmount = input)} required />
             </div>
-            <div className="col-3 col-12-xs inline-block">
+            <div className="col-5 col-12-xs inline-block">
               <input type="submit" value="Submit" />
             </div>
           </form>

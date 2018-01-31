@@ -12,6 +12,7 @@ class Profile extends Component {
     super();
     this.state={
       showAvatarGallery: false,
+      loggedIn: false,
       imageChoice: level1
     };
   }
@@ -71,24 +72,21 @@ class Profile extends Component {
         </div>
       }
 
+
+//log-link and p and the entire profile-header will have to be based on if someone is logged in or not.
     return (
       <div>
-      <header class="App-header">
-                <h1 class="App-title inline-block">ChoreTrek</h1>
-                <a class="log-link inline-block">Log out</a>
-                <p class="profile-name inline-block">Serina</p>            
-            </header>
-      <div className="box row w900">
-        <header className="profile-header">
-          <div className="profile-avatar-div col-4-sm col-12-xs">
-            <img src={this.state.imageChoice} id="avatar1" className="profile-avatar" alt="avatar" onClick={this.handleClick.bind(this)} />
-          </div>
-          <div className="profile-level-div col-6-sm col-12-xs">
-            <h2 className="profile-level-title">Level <span>{level}</span></h2>
-          </div>
-          {galleryNode}
-        </header>
-      </div>
+        <div className="box row">
+          <header className="profile-header">
+            <div className="profile-avatar-div col-4-sm col-12-xs">
+              <img src={this.state.imageChoice} id="avatar1" className="profile-avatar" alt="avatar" onClick={this.handleClick.bind(this)} />
+            </div>
+            <div className="profile-level-div col-6-sm col-12-xs">
+              <h2 className="profile-level-title">Level <span>{level}</span></h2>
+            </div>
+            {galleryNode}
+          </header>
+        </div>
       </div>
     );
   }

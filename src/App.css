@@ -31,7 +31,7 @@
   font-size: large;
 }
 
-.chores {
+.chore-box, .landing-box {
   min-height: 60vh;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .section-border {
-  border-top: 2px solid grey;
+  border-top: 1px solid #D6D8DA;
 }
 
 .clear {
@@ -61,23 +61,24 @@
   width: 100%;
 }
 
-
-
-.col-5 {
-    width: 20%;
-}
-
 .col-12-xs {
   width: 100%;
   margin-bottom: 10px;
   margin-top: 10px;
 }
 
+
+
 @media screen and (min-width: 768px) {
   .App-header {
     height: 150px;
     padding: 20px;
   }
+
+  .col-5 {
+      width: 20%;
+  }
+
 
   .col-3 {
     width: 25%;
@@ -90,4 +91,7 @@
   .col-6-sm {
     width: 60%;
   }
+
+
+
 }

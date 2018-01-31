@@ -1,21 +1,32 @@
-.chore-traking-table-div {
-  display: inline-block;
-}
-
-table {
-  width: 100%;
-  border-bottom: 2px solid;
-  border-right: 2px solid;
-  border-top: 1px solid gray;
-  border-left: 1px solid gray;
-  box-shadow: 2px 2px 2px grey;
-}
 
 .chore-box {
   max-height: 50vh;
   overflow: auto;
 }
 
-tbody:nth-child(even) {
-     background-color: #ccc;
+.chore-traking-table-div {
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+/* tbody:nth-child(even) {
+     background-color: #c5ddd6;
+} */
+
+tbody {
+    border-bottom: 1px solid #D6D8DA;
+}
+
+th {
+  padding: 5px;
+  vertical-align: bottom;
+}
+
+td {
+  padding: 15px;
 }
