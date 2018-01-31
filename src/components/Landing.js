@@ -8,7 +8,6 @@ export default class Landing extends Component {
     this.state={
       showCreateProfile: false,
       showLogIn: false,
-      showLanding: true,
     };
   }
 
@@ -30,12 +29,23 @@ handleClick(event) {
 
 handleSubmit(event){
   event.preventDefault();
-  let userName = event.target.userName.value;
-  let email = event.target.email.value;
-  let password = event.target.password.value;
+  let userName;
+  let email;
+  let password;
+
+  if(event.target.id === "createForm"){
+  userName = event.target.userName.value;
+  email = event.target.email.value;
+  password = event.target.password.value;
+}
+  else if(event.target.id === "logInForm"){
+
+  email = event.target.email.value;
+  password = event.target.password.value;
+}
+
  this.props.userInput(userName, email, password);
  this.setState({
-   showLanding: false,
    showCreateProfile: false,
    showLogIn: false
  });
@@ -48,28 +58,6 @@ handleSubmit(event){
 
       let createProfile;
       let logIn;
-      let landing;
-
-      if(this.state.showLanding) {
-        landing =
-          <div>
-            <div className="box row section-border clear">
-                   <div className="intro-div col-12-xs">
-                       <p className="intro">Earn, Save, Spend</p>
-                       <p className="intro">Fun virtual bank account for young family members to track savings and spending and learn along the way.</p>
-                   </div>
-            </div>
-           <div className="box row clear">
-               <div className="create inline-block col-12-xs col-2-sm">
-                   <button id="createProfileButton" onClick={this.handleClick.bind(this)}>Create a Profile</button>
-               </div>
-               <div className="log inline-block col-12-xs col-2-sm">
-                   <button id="logInButton" onClick={this.handleClick.bind(this)}>Log In</button>
-               </div>
-            </div>
-
-          </div>
-      }
       if(this.state.showCreateProfile) {
         createProfile = <form id="createForm" onSubmit={this.handleSubmit.bind(this)}>
           <div className="col-3 col-12-xs inline-block">
@@ -113,9 +101,23 @@ handleSubmit(event){
 
         return (
           <div>
-                {landing}
-                 {createProfile}
-                 {logIn}
+              <div className="box row section-border clear">
+                     <div className="intro-div col-12-xs">
+                         <p className="intro">Earn, Save, Spend</p>
+                         <p className="intro">Fun virtual bank account for young family members to track savings and spending and learn along the way.</p>
+                     </div>
+              </div>
+             <div className="box row clear">
+                 <div className="create inline-block col-12-xs col-2-sm">
+                     <button id="createProfileButton" onClick={this.handleClick.bind(this)}>Create a Profile</button>
+                 </div>
+                 <div className="log inline-block col-12-xs col-2-sm">
+                     <button id="logInButton" onClick={this.handleClick.bind(this)}>Log In</button>
+                 </div>
+              </div>
+
+               {createProfile}
+               {logIn}
           </div>
           );
       }

@@ -19,10 +19,12 @@ export default class ChoreBox extends Component {
 
     userInput(userName, email, password, loggedIn) {
       this.setState({userName: userName, loggedIn: true});
-      console.log(userName, email, password, typeof userName);
     }
 
-
+    handleClick(event) {
+      event.preventDefault();
+      this.setState({userName: '', loggedIn: false});
+    }
 
 
 
@@ -32,21 +34,23 @@ export default class ChoreBox extends Component {
 
     let profile;
     let chores;
+    let landing;
+
+    if(!this.state.loggedIn) {
+      landing =  <div className="landing">
+                  <Landing userInput={this.userInput.bind(this)}/>
+                 </div>
+    }
 
     if(this.state.loggedIn) {
-      console.log(this.state.loggedIn)
+      profile = <div className="profile">
+            <Profile />
+          </div>
 
-    profile = <div className="profile">
-        <Profile />
-      </div>
-
-
-  chores =
-      <div className="chores">
-         <Chores />
-       </div>
-
-
+      chores =
+          <div className="chores">
+             <Chores />
+           </div>
       }
 
 console.log({profile});
@@ -55,18 +59,12 @@ console.log({profile});
       <div className="App">
         <header className="App-header">
             <h1 className="App-title inline-block">ChoreTrek</h1>
-            <a className="log-link inline-block">Log out</a>
+            <a className="log-link inline-block" onClick={this.handleClick.bind(this)} >Log out</a>
             <p className="profile-name inline-block">{user}</p>
         </header>
-
-
-          <div className="landing">
-            <Landing userInput={this.userInput.bind(this)}/>
-          </div>
-
+          {landing}
           {profile}
           {chores}
-
           <div className="footer">
             <Footer />
           </div>
