@@ -1,6 +1,9 @@
 
-
-
 .intro-div {
     font-size: large;
+}
+
+
+.landing {
+ min-height: 80vh;
 }

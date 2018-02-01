@@ -31,9 +31,8 @@
   font-size: large;
 }
 
-.chores, .landing {
-  min-height: 60vh;
-}
+
+
 
 .profile, .footer {
   min-height: 20vh;
@@ -102,6 +101,10 @@ button {
 
   .ml60{
     margin-right: 60%;
+  }
+
+  .landing {
+    min-height: 60vh;
   }
 
 

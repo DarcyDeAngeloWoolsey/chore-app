@@ -4,6 +4,7 @@ Aside from React App, the following libraries were utilized:
   react-redux
   express
   cors
+  thunk
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 

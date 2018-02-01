@@ -4,6 +4,10 @@
   overflow: auto;
 }
 
+.chores {
+  min-height: 60vh;
+}
+
 .chore-traking-table-div {
   display: inline-block;
 }
