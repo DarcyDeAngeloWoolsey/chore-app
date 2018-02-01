@@ -38,8 +38,8 @@ handleSubmit(event){
   email = event.target.email.value;
   password = event.target.password.value;
 }
+//{/*need to get userName from object when in build so that the userName value can display on header*/}
   else if(event.target.id === "logInForm"){
-
   email = event.target.email.value;
   password = event.target.password.value;
 }

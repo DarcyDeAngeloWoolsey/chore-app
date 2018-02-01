@@ -78,6 +78,7 @@ handleSubmit(event) {
               <br/>
               <input type="number" name="amount" placeholder="1.00" step=".01" ref={input => (this.choreAmount = input)} required />
             </div>
+            
             <div className="col-5 col-12-xs inline-block">
               <input type="submit" value="Submit" />
             </div>

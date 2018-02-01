@@ -78,11 +78,14 @@ class Profile extends Component {
       <div>
         <div className="box row">
           <header className="profile-header">
-            <div className="profile-avatar-div col-4-sm col-12-xs">
+            <div className="profile-avatar-div col-4-sm col-12-xs mt10">
               <img src={this.state.imageChoice} id="avatar1" className="profile-avatar" alt="avatar" onClick={this.handleClick.bind(this)} />
             </div>
-            <div className="profile-level-div col-6-sm col-12-xs">
+            <div className="profile-level-div col-6-sm col-12-xs mt10">
               <h2 className="profile-level-title">Level <span>{level}</span></h2>
+            </div>
+            <div className="profile-level-div col-4-sm col-12-xs mt10 ml60 ml0">
+              <a href="" id="goals" className="goalsLink">My Goals</a>
             </div>
             {galleryNode}
           </header>

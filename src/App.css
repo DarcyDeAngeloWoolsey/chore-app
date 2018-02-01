@@ -49,6 +49,10 @@
   max-width: 900px;
 }
 
+button {
+  margin: 10px 0px;
+}
+
 .section-border {
   border-top: 1px solid #D6D8DA;
 }
@@ -61,10 +65,14 @@
   width: 100%;
 }
 
+.mt10, input, select {
+  margin-top: 10px;
+}
+
+
 .col-12-xs {
   width: 100%;
-  margin-bottom: 10px;
-  margin-top: 10px;
+
 }
 
 
@@ -92,6 +100,9 @@
     width: 60%;
   }
 
+  .ml60{
+    margin-right: 60%;
+  }
 
 
 }

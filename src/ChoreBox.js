@@ -53,7 +53,6 @@ export default class ChoreBox extends Component {
            </div>
       }
 
-console.log({profile});
 
     return (
       <div className="App">
