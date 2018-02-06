@@ -1,24 +1,6 @@
-import * as actions from '../actions/index';
+import {combineReducers} from 'redux';
 
-const initialState = {
-  choreList: []
-};
+import userInputReducer from './userInput';
+import {addChoreReducer} from './addChores';
 
-export const addChoreReducer = (state=initialState, action) => {
-    if (action.type === actions.ADD_CHORE) {
-        return Object.assign({}, state, {
-             choreList: [...state.choreList, {
-                 choreDate: action.choreDate,
-                 choreType: action.choreType,
-                 choreBanking: action.choreBanking,
-                 choreAmount: action.choreAmount,
-                 choreTotal: action.choreTotal
-             }]
-         });
-
-    }
-    else if (action.type === actions.FETCH_CHORES_SUCCESS) {
-        return action.Chores;
-    }
-    return state;
-};
+export default combineReducers({ userInputReducer, addChoreReducer})

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import level1 from '../level1-icon.png';
-import angel from '../Angel-icon.png';
-import clown from '../Clown-icon.png';
-import mermaid from '../Mermaid-icon.png';
-import dragon from '../Dragon-icon.png';
-import './Profile.css';
 import {connect} from 'react-redux';
+
+import defaultAvatar from '../images/Alien-icon.png';
+import angel from '../images/Angel-icon.png';
+import clown from '../images/Clown-icon.png';
+import mermaid from '../images/Mermaid-icon.png';
+import dragon from '../images/Dragon-icon.png';
+
+import '../Profile.css';
+
 
 class Profile extends Component {
   constructor(){
@@ -13,7 +16,7 @@ class Profile extends Component {
     this.state={
       showAvatarGallery: false,
       loggedIn: false,
-      imageChoice: level1
+      imageChoice: defaultAvatar
     };
   }
 
@@ -55,7 +58,7 @@ class Profile extends Component {
       if(this.state.showAvatarGallery) {
         galleryNode = <div className="profile-level-div col-12-xs">
 
-          <img src={level1} id="avatar1" className="profile-avatar" alt="avatar" onClick={this.handleClick.bind(this)} />
+          <img src={defaultAvatar} id="avatar1" className="profile-avatar" alt="avatar" onClick={this.handleClick.bind(this)} />
 
 
           <img src={angel} id="avatar2" className="profile-avatar" alt="avatar" onClick={this.handleClick.bind(this)} />
@@ -97,7 +100,7 @@ class Profile extends Component {
 
 
 const mapStateToProps = state => ({
-    choreList: state.choreList
+    choreList: state.addChoreReducer.choreList
 });
 
 export default connect(mapStateToProps)(Profile);

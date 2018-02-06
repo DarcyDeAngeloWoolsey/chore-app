@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './ChoreUpdate.css';
 import {connect} from 'react-redux';
+
+import '../ChoreUpdate.css';
 
 
 class ChoreUpdate extends Component {
@@ -78,7 +79,7 @@ handleSubmit(event) {
               <br/>
               <input type="number" name="amount" placeholder="1.00" step=".01" ref={input => (this.choreAmount = input)} required />
             </div>
-            
+
             <div className="col-5 col-12-xs inline-block">
               <input type="submit" value="Submit" />
             </div>
@@ -90,7 +91,7 @@ handleSubmit(event) {
   }
 }
 const mapStateToProps = state => ({
-    choreList: state.choreList
+    choreList: state.addChoreReducer.choreList
 });
 
 export default connect(mapStateToProps)(ChoreUpdate);

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {addChore, fetchChores} from '.../actions/index';
+
 import ChoresList from './ChoresList';
 import ChoreUpdate from './ChoreUpdate';
-import {addChore, fetchChores} from '../actions/index';
 
-import './Chores.css';
+import '../Chores.css';
 
 class Chores extends Component {
 
@@ -57,7 +58,7 @@ class Chores extends Component {
 }
 
  const mapStateToProps = state => ({
-     choreList: state.choreList
+     choreList: state.addChoreReducer.choreList
  });
 
 export default connect(mapStateToProps)(Chores);

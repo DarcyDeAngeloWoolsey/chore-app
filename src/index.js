@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
-import ChoreBox from './ChoreBox';
+import ChoreBox from './components/pages/ChoreBox';
 import './index.css';
 import store from './store';
 
