@@ -73,7 +73,7 @@ class ChoreBox extends Component {
               {user}
           </header>
           <main>
-            <Route path="/" component={() => (displayOn) } />
+            <Route path="/" render={() => (displayOn) } />
           </main>
             <div className="footer">
               <Footer />

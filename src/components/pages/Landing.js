@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import '../Landing.css';
 
@@ -87,15 +88,17 @@ handleLogInSubmit(event){
               </div>
              <div className="box row clear">
                  <div className="create inline-block">
-                    <button><Link to="/sign-up">Create Profile</Link></button>
+                  <button><Link to="/sign-up">Create Profile</Link></button>
                  </div>
                  <div className="log inline-block">
                   <button><Link to="/login">Log In</Link></button>
                  </div>
               </div>
                 <div>
+                <Switch>
                   <Route path="/sign-up" render={() => (createProfile)} />
                   <Route path="/login" component={() => (logIn) } />
+                </Switch>
                 </div>
           </div>
 
@@ -103,4 +106,4 @@ handleLogInSubmit(event){
       }
 }
 
-export default connect()(Landing);
+export default withRouter(connect()(Landing));
