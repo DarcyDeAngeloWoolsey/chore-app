@@ -39,13 +39,13 @@ app.get('/api/ChoreBox', (req, res) => {
     res.json({
       users: [{
         userName: "Serina",
-        email: girly@gmail.com,
+        email: "girly@gmail.com",
         password: 555,
         loggedIn: true,
       },
       {
         userName: "Darcy",
-        email: girly@gmail.com,
+        email: "girly@gmail.com",
         password: 555,
         loggedIn: true,
       }

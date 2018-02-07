@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import defaultAvatar from '../images/Alien-icon.png';
-import angel from '../images/Angel-icon.png';
-import clown from '../images/Clown-icon.png';
-import mermaid from '../images/Mermaid-icon.png';
-import dragon from '../images/Dragon-icon.png';
+import defaultAvatar from '../../images/Alien-icon.png';
+import angel from '../../images/Angel-icon.png';
+import clown from '../../images/Clown-icon.png';
+import mermaid from '../../images/Mermaid-icon.png';
+import dragon from '../../images/Dragon-icon.png';
 
 import '../Profile.css';
 

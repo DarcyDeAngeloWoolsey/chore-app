@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {userInput} from '.../actions/userInputActions';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {userInput} from '../../actions/userInputActions';
 
 import Chores from './Chores';
 import Landing from './Landing';
@@ -14,8 +15,6 @@ import '../App.css';
 
 class ChoreBox extends Component {
 
-//?? how do we fetch users from the server to check agains? we we do it during componentDidMount?
-//??is it ok for me to have 2 ?methods? in one component, like in Layout?
 
   userInput(userName, email, password, loggedIn) {
     this.props.dispatch(userInput(userName, email, password, loggedIn));
@@ -45,37 +44,42 @@ class ChoreBox extends Component {
       console.log(data.loggedIn)
     );
 
-    let dashboard;
-    let landing;
 
-    landing =  <div className="landing">
-               <Landing userInput={this.userInput.bind(this)} logIn={this.logIn.bind(this)}/>
-               </div>
+    const landing =
+              <div className="landing">
+                <Landing userInput={this.userInput.bind(this)} logIn={this.logIn.bind(this)}/>
+              </div>
 
-    dashboard = <div>
-                <div className="profile">
-                <Profile />
+    const dashboard =
+                <div>
+                  <div className="profile">
+                    <Profile />
+                  </div>
+                  <div className="chores">
+                    <Chores />
+                  </div>
                 </div>
-                <div className="chores">
-                <Chores />
-                </div>
-                </div>
+
 
     const displayOn = this.props.users[0]&&this.props.users[0].loggedIn?dashboard:landing;
 
 
     return (
-      <div className="App">
-        <header className="App-header">
-            <h1 className="App-title inline-block">ChoreTrek</h1>
-            <a className="log-link inline-block" onClick={this.handleClick.bind(this)} >Log out</a>
-            {user}
-        </header>
-          {displayOn}
-          <div className="footer">
-            <Footer />
+      <Router>
+        <div className="App">
+          <header className="App-header">
+              <h1 className="App-title inline-block">ChoreTrek</h1>
+              <a className="log-link inline-block" onClick={this.handleClick.bind(this)} >Log out</a>
+              {user}
+          </header>
+          <main>
+            <Route path="/" component={() => (displayOn) } />
+          </main>
+            <div className="footer">
+              <Footer />
+            </div>
           </div>
-        </div>
+        </Router>
     );
   }
 }
