@@ -1,10 +1,10 @@
-import {createStore, applyMiddleware} from 'redux'
-import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 // import {addChoreReducer} from './reducers/index';
 // import {userInputReducer} from './reducers/userInput';
 
-import combineReducers from './reducers/index'
+import combineReducers from "./reducers/index";
 
 // export default createStore(
 //   combineReducers({

@@ -3,6 +3,17 @@
     font-size: large;
 }
 
+.howto-div {
+  background-color: #b2d8d8;
+  position: relative;
+  text-align: left;
+  top: 50px;
+}
+
+.howto {
+  padding: 10px;
+  margin: 0px;
+}
 
 .landing {
  min-height: 80vh;

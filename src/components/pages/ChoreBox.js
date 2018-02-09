@@ -1,20 +1,29 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import {userInput} from '../../actions/userInputActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { userInput, fetchUser } from "../../actions/userInputActions";
+import { Redirect } from 'react-router-dom';
 
-import Chores from './Chores';
-import Landing from './Landing';
-import Footer from './Footer';
-import Profile from './Profile';
-import UserName from './UserName';
+import Chores from "./Chores";
+import Landing from "./Landing";
+import Footer from "./Footer";
+import Profile from "./Profile";
+import UserName from "./UserName";
 
-import '../App.css';
-
-
+import "../App.css";
 
 class ChoreBox extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+        userName: ''
+    };
 
+  }
+
+  componentDidMount() {
+    this.props.dispatch(fetchUser());
+  }
 
   userInput(userName, email, password, loggedIn) {
     this.props.dispatch(userInput(userName, email, password, loggedIn));
@@ -22,72 +31,105 @@ class ChoreBox extends Component {
 
   //need to find how we connect this to surver
 
-  logIn(email, password, loggedIn) {
-    this.props.dispatch(userInput(email, password, loggedIn));
+  logIn(userName, password, loggedIn) {
+    this.props.dispatch(userInput(userName, password, loggedIn));
+      this.setState({userName: userName});
+      console.log("this is the userName " + userName);
   }
 
+
+
   handleClick(event) {
-      event.preventDefault();
-      this.setState({userName: '', loggedIn: false});
-    }
-
-
+    event.preventDefault();
+    this.setState({ userName: "", loggedIn: false });
+  }
 
   render() {
-    const user = this.props.users.map((data, index) =>
+    console.log("this is the userName " + this.state.userName);
+    const user = this.props.users.map((data, index) => (
       <div className="profile-name inline-block" key={index}>
-      <UserName userName = {data.userName} />
+        <UserName userName={data.userName} />
+      </div>
+    ));
+
+    this.props.users.map((data, index) => console.log(data.loggedIn));
+
+    let logged;
+    let logStatus;
+
+    this.props.users.map((data, index) => {
+      if (data.loggedIn) {
+        console.log("data.loggedIn is " + data.loggedIn);
+        logStatus = data.loggedIn;
+      }
+    });
+  console.log("the log status is " + logStatus);
+    if (logStatus) {
+      logged = (
+        <a
+          className="log-link inline-block"
+          onClick={this.handleClick.bind(this)}
+        >
+          Log out
+        </a>
+      );
+    }
+
+    const logOut = (
+      <a
+        className="log-link inline-block"
+        onClick={this.handleClick.bind(this)}
+      >
+        Log out
+      </a>
+    );
+
+    const landing = (
+      <div className="landing">
+        <Landing
+          userInput={this.userInput.bind(this)}
+          logIn={this.logIn.bind(this)}
+        />
       </div>
     );
 
-    this.props.users.map((data, index) =>
-      console.log(data.loggedIn)
+    const dashboard = (
+      <div>
+        <div className="profile">
+          <Profile />
+        </div>
+        <div className="chores">
+          <Chores />
+        </div>
+      </div>
     );
 
-
-    const landing =
-              <div className="landing">
-                <Landing userInput={this.userInput.bind(this)} logIn={this.logIn.bind(this)}/>
-              </div>
-
-    const dashboard =
-                <div>
-                  <div className="profile">
-                    <Profile />
-                  </div>
-                  <div className="chores">
-                    <Chores />
-                  </div>
-                </div>
-
-
-    const displayOn = this.props.users[0]&&this.props.users[0].loggedIn?dashboard:landing;
-
+  //  const displayOn = this.props.users[0] && this.props.users[0].loggedIn ? dashboard : landing;
 
     return (
       <Router>
         <div className="App">
           <header className="App-header">
-              <h1 className="App-title inline-block">ChoreTrek</h1>
-              <a className="log-link inline-block" onClick={this.handleClick.bind(this)} >Log out</a>
-              {user}
+            <h1 className="App-title">ChoreTrek</h1>
+            {logOut}
+            {user}
           </header>
           <main>
-            <Route path="/" render={() => (displayOn) } />
+            <Route path="/home" component={() => landing} />
+            <Route path="/profile" render={() => dashboard} />
+            <Redirect exact to={{pathname: '/home', from: '/'}} />
           </main>
-            <div className="footer">
-              <Footer />
-            </div>
+          <div className="footer">
+            <Footer />
           </div>
-        </Router>
+        </div>
+      </Router>
     );
   }
 }
 
-
 const mapStateToProps = state => ({
-    users: state.userInputReducer.users
+  users: state.userInputReducer.users
 });
-
 
 export default connect(mapStateToProps)(ChoreBox);

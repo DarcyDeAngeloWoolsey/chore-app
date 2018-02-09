@@ -1,28 +1,29 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {addChore, fetchChores} from '../../actions/index';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addChore, fetchChores } from "../../actions/index";
 
-import ChoresList from './ChoresList';
-import ChoreUpdate from './ChoreUpdate';
+import ChoresList from "./ChoresList";
+import ChoreUpdate from "./ChoreUpdate";
 
-import '../Chores.css';
+import "../Chores.css";
 
 class Chores extends Component {
-
   componentDidMount() {
-        this.props.dispatch(fetchChores());
-    }
+    this.props.dispatch(fetchChores());
+  }
 
   addChore(choreDate, choreType, choreBanking, choreAmount, choreTotal) {
-        this.props.dispatch(addChore(choreDate, choreType, choreBanking, choreAmount, choreTotal));
-    }
+    this.props.dispatch(
+      addChore(choreDate, choreType, choreBanking, choreAmount, choreTotal)
+    );
+  }
 
   render() {
-    const list = this.props.choreList.map((chores, index) =>
+    const list = this.props.choreList.map((chores, index) => (
       <tbody key={index}>
         <ChoresList {...chores} />
       </tbody>
-  );
+    ));
 
     return (
       <div>
@@ -34,7 +35,7 @@ class Chores extends Component {
           </header>
           <div className="chore-traking-table-div">
             <table>
-            <tbody>
+              <tbody>
                 <tr>
                   <th className="col-5">Date</th>
                   <th className="col-5">Chore</th>
@@ -43,22 +44,20 @@ class Chores extends Component {
                   <th className="col-5">Total</th>
                 </tr>
               </tbody>
-                  {list}
+              {list}
             </table>
           </div>
         </div>
         <div className="chore-update">
-          <ChoreUpdate addChore={this.addChore.bind(this)}/>
+          <ChoreUpdate addChore={this.addChore.bind(this)} />
         </div>
-    </div>
-
+      </div>
     );
   }
-
 }
 
- const mapStateToProps = state => ({
-     choreList: state.addChoreReducer.choreList
- });
+const mapStateToProps = state => ({
+  choreList: state.addChoreReducer.choreList
+});
 
 export default connect(mapStateToProps)(Chores);
