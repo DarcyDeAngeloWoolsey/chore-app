@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { userInput, fetchUser } from "../../actions/userInputActions";
+import { logIn } from "../../actions/logInActions";
 import { Redirect } from 'react-router-dom';
 
 import Chores from "./Chores";
@@ -21,20 +22,21 @@ class ChoreBox extends Component {
 
   }
 
+//do I even need a fetchLogin?
   componentDidMount() {
     this.props.dispatch(fetchUser());
   }
 
-  userInput(userName, email, password, loggedIn) {
+  userSubmit(userName, email, password, loggedIn) {
     this.props.dispatch(userInput(userName, email, password, loggedIn));
   }
 
   //need to find how we connect this to surver
 
-  logIn(userName, password, loggedIn) {
-    this.props.dispatch(userInput(userName, password, loggedIn));
+  logInSubmit(userName, password, loggedIn) {
+    this.props.dispatch(logIn(userName, password, loggedIn));
       this.setState({userName: userName});
-      console.log("this is the userName " + userName);
+      console.log("this is the logged userName " + userName);
   }
 
 
@@ -45,7 +47,8 @@ class ChoreBox extends Component {
   }
 
   render() {
-    console.log("this is the userName " + this.state.userName);
+    console.log("this is the logged userName " + this.state.userName);
+
     const user = this.props.users.map((data, index) => (
       <div className="profile-name inline-block" key={index}>
         <UserName userName={data.userName} />
@@ -87,8 +90,8 @@ class ChoreBox extends Component {
     const landing = (
       <div className="landing">
         <Landing
-          userInput={this.userInput.bind(this)}
-          logIn={this.logIn.bind(this)}
+          userInput={this.userSubmit.bind(this)}
+          logIn={this.logInSubmit.bind(this)}
         />
       </div>
     );

@@ -17,7 +17,7 @@ export const fetchUserSuccess = User => ({
 
 export const fetchUser = () => dispatch => {
   console.log("fetch user running");
-  fetch(`${API_BASE_URL}/home/login`)
+  fetch(`${API_BASE_URL}/home/sign-up`)
     .then(res => {
       if (!res.ok) {
         return Promise.reject(res.statusText);
