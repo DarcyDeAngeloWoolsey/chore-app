@@ -3,9 +3,17 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 
+
 import "../Landing.css";
 
 class Landing extends Component {
+
+//seems fetch is not needed without a get request. we are posting for login, which we are doing in ChoreBox atm
+  // componentDidMount() {
+  //   this.props.dispatch(fetchLogIn());
+  // }
+
+
   handleCreateUserSubmit(event) {
     event.preventDefault();
     let userName;
@@ -15,7 +23,7 @@ class Landing extends Component {
     email = event.target.email.value;
     password = event.target.password.value;
     console.log(userName, email, password);
-    this.props.userInput(userName.trim(), email.trim(), password.trim());
+    this.props.registerUser(userName.trim(), email.trim(), password.trim());
     this.props.history.push("/profile");
     console.log(this.props.history);
   }
@@ -27,12 +35,13 @@ class Landing extends Component {
     userName = event.target.userName.value;
     password = event.target.password.value;
     console.log(userName, password);
-    this.props.logIn(userName.trim(), password.trim());
+    this.props.login(userName.trim(), password.trim());
   }
 
 
 
   render() {
+
     const enter = (
       <div className="enter">
         <Link to="/home/login">Enter</Link>
@@ -156,4 +165,8 @@ class Landing extends Component {
   }
 }
 
-export default withRouter(connect()(Landing));
+const mapStateToProps = state => ({
+  users: state.userInputReducer.users
+});
+
+export default withRouter(connect(mapStateToProps)(Landing));

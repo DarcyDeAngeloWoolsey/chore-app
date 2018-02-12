@@ -1,23 +1,33 @@
-import * as actions from "../actions/logInActions";
-
-//right now we are creating a user and then sending back the userName
-//we will need a unique ID generator
+import {
+    AUTH_REQUEST,
+    AUTH_SUCCESS,
+    AUTH_ERROR
+} from '../actions/logInActions';
 
 const initialState = {
-  users: []
+    authToken: null, // authToken !== null does not mean it has been validated
+    currentUser: null,
+    loading: false,
+    error: null
 };
 
+
 export const logInReducer = (state = initialState, action) => {
-  if (action.type === actions.LOGIN) {
-    return Object.assign({}, state, {
-      users: [
-        ...state.users,
-        {
-          userName: action.userName,
-          password: action.password,
-        }
-      ]
-    });
-  }
-  return state;
+    if (action.type === AUTH_REQUEST) {
+        return Object.assign({}, state, {
+            loading: true,
+            error: null
+        });
+    } else if (action.type === AUTH_SUCCESS) {
+        return Object.assign({}, state, {
+            loading: false,
+            currentUser: action.currentUser
+        });
+    } else if (action.type === AUTH_ERROR) {
+        return Object.assign({}, state, {
+            loading: false,
+            error: action.error
+        });
+    }
+    return state;
 }

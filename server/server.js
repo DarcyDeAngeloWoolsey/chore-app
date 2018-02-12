@@ -1,13 +1,17 @@
 const express = require("express");
+const bodyParser = require('body-parser')
 const cors = require("cors");
 const { CLIENT_ORIGIN } = require("./config");
 const { API_BASE_URL } = require("../src/config");
 
 const app = express();
+const jsonParser = bodyParser.json()
+
+app.use(bodyParser.json());
 
 app.use(
   cors({
-    "Access-Control-Allow-Origin": CLIENT_ORIGIN,
+    "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true
   })
 );
@@ -33,7 +37,7 @@ app.get("/api/Chores", (req, res) => {
   });
 });
 
-app.get("/api/home/login", (req, res) => {
+app.get("/api/sign-up", (req, res) => {
   res.json({
     users: [
       {
@@ -50,6 +54,27 @@ app.get("/api/home/login", (req, res) => {
       }
     ]
   });
+});
+
+//TODO SET UP MLAB
+app.post("/api/sign-up", jsonParser, (req, res) => {
+  // create a user in db
+  // send it back when created
+
+  // check if user already exists -> throw an error
+  // use hash function for password -> authorization Thinkful
+  console.log("app post users is running")
+  console.log(req.body);
+  res.json(req.body);
+});
+
+app.post("/api/login", jsonParser, (req, res) => {
+  // check if user already exists
+  // use hash function to match passwords
+  // send auth token as a response
+  console.log("app post is running")
+  console.log(req.body);
+  res.json(req.body);
 });
 
 app.listen(8080);

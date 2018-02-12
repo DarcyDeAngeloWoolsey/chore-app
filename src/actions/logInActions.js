@@ -1,30 +1,53 @@
+import {normalizeResponseErrors} from './utils';
 const { API_BASE_URL } = require("../config");
 
-export const LOGIN = "LOGIN";
-export const logIn = (userName, password, loggedIn) => ({
-  type: LOGIN,
-  userName,
-  password,
-  loggedIn,
+export const AUTH_REQUEST = 'AUTH_REQUEST';
+export const authRequest = () => ({
+    type: AUTH_REQUEST
 });
 
-//do I even need a fetchLogin?
-export const FETCH_LOGIN_SUCCESS = "FETCH_LOGIN_SUCCESS";
-export const fetchLogInSuccess = User => ({
-  type: FETCH_LOGIN_SUCCESS,
-  User
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const authSuccess = currentUser => ({
+    type: AUTH_SUCCESS,
+    currentUser
 });
 
-export const fetchLogIn = () => dispatch => {
-  console.log("fetch logIn running");
-  fetch(`${API_BASE_URL}/home/login`)
-    .then(res => {
-      if (!res.ok) {
-        return Promise.reject(res.statusText);
-      }
-      return res.json();
-    })
-    .then(User => {
-      dispatch(fetchLogInSuccess(User));
-    });
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const authError = error => ({
+    type: AUTH_ERROR,
+    error
+});
+
+export const login = (userName, password) => dispatch => {
+  console.log("login action running");
+    dispatch(authRequest());
+    return (
+        fetch(`${API_BASE_URL}/home/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userName,
+                password
+            })
+        })
+
+            .then(res => normalizeResponseErrors(res))
+            .then(res => res.json())
+            // .then(({authToken}) => storeAuthInfo(authToken, dispatch))
+            // .catch(err => {
+            //     const {code} = err;
+            //     const message =
+            //         code === 401
+            //             ? 'Incorrect username or password'
+            //             : 'Unable to login, please try again';
+            //     dispatch(authError(err));
+            //     return Promise.reject(
+            //         new SubmissionError({
+            //             _error: message
+            //         })
+            //     );
+            // })
+    );
 };

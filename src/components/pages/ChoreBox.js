@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { userInput, fetchUser } from "../../actions/userInputActions";
-import { logIn } from "../../actions/logInActions";
+import { userInput, fetchUser, registerUser} from "../../actions/userInputActions";
+import { login} from "../../actions/logInActions";
+
 import { Redirect } from 'react-router-dom';
 
 import Chores from "./Chores";
@@ -17,28 +18,31 @@ class ChoreBox extends Component {
   constructor(props){
     super(props);
     this.state={
-        userName: ''
-    };
+      auth: [
+        {
+          userName: '',
+          password: ''
+        }
+      ]
+    }
+}
 
-  }
 
-//do I even need a fetchLogin?
   componentDidMount() {
     this.props.dispatch(fetchUser());
   }
 
   userSubmit(userName, email, password, loggedIn) {
-    this.props.dispatch(userInput(userName, email, password, loggedIn));
+    this.props.dispatch(registerUser(userName, email, password, loggedIn));
   }
 
   //need to find how we connect this to surver
-
+  //i believe I EITHER dispatch or setState. But if I setState do I even need to make a post request?
   logInSubmit(userName, password, loggedIn) {
-    this.props.dispatch(logIn(userName, password, loggedIn));
+    this.props.dispatch(login(userName, password, loggedIn));
       this.setState({userName: userName});
       console.log("this is the logged userName " + userName);
   }
-
 
 
   handleClick(event) {
@@ -47,7 +51,13 @@ class ChoreBox extends Component {
   }
 
   render() {
-    console.log("this is the logged userName " + this.state.userName);
+    let currentUser = this.state.userName;
+    console.log(currentUser);
+
+    const users = this.props.users.map((data, index) => (
+        {...data}
+    ));
+    console.log(users);
 
     const user = this.props.users.map((data, index) => (
       <div className="profile-name inline-block" key={index}>
@@ -90,8 +100,8 @@ class ChoreBox extends Component {
     const landing = (
       <div className="landing">
         <Landing
-          userInput={this.userSubmit.bind(this)}
-          logIn={this.logInSubmit.bind(this)}
+          registerUser={this.userSubmit.bind(this)}
+          login={this.logInSubmit.bind(this)}
         />
       </div>
     );
@@ -118,9 +128,11 @@ class ChoreBox extends Component {
             {user}
           </header>
           <main>
+          <Switch>
             <Route path="/home" component={() => landing} />
             <Route path="/profile" render={() => dashboard} />
             <Redirect exact to={{pathname: '/home', from: '/'}} />
+            </Switch>
           </main>
           <div className="footer">
             <Footer />
