@@ -24,7 +24,11 @@ export const fetchChoresSuccess = Chores => ({
 
 export const fetchChores = () => dispatch => {
   console.log("fetch running");
-  fetch(`${API_BASE_URL}/Chores`)
+  fetch(`${API_BASE_URL}/Chores`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  })
     .then(res => {
       if (!res.ok) {
         return Promise.reject(res.statusText);

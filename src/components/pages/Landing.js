@@ -23,7 +23,8 @@ class Landing extends Component {
     email = event.target.email.value;
     password = event.target.password.value;
     console.log(userName, email, password);
-    this.props.registerUser(userName.trim(), email.trim(), password.trim());
+    //instead of trimming here, we will send an error on the backend, telling them they cannot trim.
+    this.props.registerUser(userName, email.trim(), password);
     this.props.history.push("/profile");
     console.log(this.props.history);
   }

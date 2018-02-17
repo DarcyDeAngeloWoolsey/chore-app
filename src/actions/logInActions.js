@@ -22,7 +22,7 @@ export const login = (userName, password) => dispatch => {
   console.log("login action running");
     dispatch(authRequest());
     return (
-        fetch(`${API_BASE_URL}/home/login`, {
+        fetch(`${API_BASE_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,6 +35,9 @@ export const login = (userName, password) => dispatch => {
 
             .then(res => normalizeResponseErrors(res))
             .then(res => res.json())
+            .then(res => {
+              localStorage.setItem("token", res.token)
+            })
             // .then(({authToken}) => storeAuthInfo(authToken, dispatch))
             // .catch(err => {
             //     const {code} = err;
