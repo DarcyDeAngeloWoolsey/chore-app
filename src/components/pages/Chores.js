@@ -19,7 +19,7 @@ class Chores extends Component {
   }
 
   render() {
-    const list = this.props.choreList.map((chores, index) => (
+    const list = this.props.balanceBook.map((chores, index) => (
       <tbody key={index}>
         <ChoresList {...chores} />
       </tbody>
@@ -57,7 +57,7 @@ class Chores extends Component {
 }
 
 const mapStateToProps = state => ({
-  choreList: state.addChoreReducer.choreList
+  balanceBook: state.addChoreReducer.balanceBook
 });
 
 export default connect(mapStateToProps)(Chores);
