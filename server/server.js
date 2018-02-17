@@ -1,14 +1,17 @@
 const express = require("express");
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
-const { CLIENT_ORIGIN,  JWT_SECRET } = require("./config");
+const { CLIENT_ORIGIN,  JWT_SECRET, PORT, DATABASE_URL } = require("./config");
 const { API_BASE_URL } = require("../src/config");
 const { ensureToken } = require("./ensureToken.js");
 const {User} = require('./models');
 
 const app = express();
 const jsonParser = bodyParser.json()
+
+mongoose.Promise = global.Promise;
 
 app.use(bodyParser.json());
 
@@ -59,16 +62,9 @@ app.get("/api/sign-up", (req, res) => {
   });
 });
 
-//TODO SET UP MLAB
 app.post("/api/sign-up", jsonParser, (req, res) => {
-  // create a user in db
-  // send it back when created
-
-//first we require these fields
   const requiredFields = ['userName', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
-
-//if fields are missing, through an error
   if (missingField) {
     return res.status(422).json({
       code: 422,
@@ -78,7 +74,6 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-  //declare fields are strings, and if their type is not a string, then throw error
   const stringFields = ['userName', 'password', 'email'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
@@ -93,8 +88,6 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-  //I moved the trimming from front end to the back end because people sometimes what whitespace as their username or password
-  //To reject these types, we say which fields must be trimmed, then see if each fields body meets a trim method status. If not, we throw an error
   const explicityTrimmedFields = ['username', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
@@ -109,7 +102,6 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-//Determine field size for the username and the password
 
   const sizedFields = {
     username: {
@@ -117,13 +109,10 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     },
     password: {
       min: 8,
-      // bcrypt truncates after 72 characters, so let's not give the illusion
-      // of security by storing extra (unused) info???
       max: 72
     }
   };
 
-//next we check to see if the fields are too small or too large, then throw an error
   const tooSmallField = Object.keys(sizedFields).find(
   field =>
     'min' in sizedFields[field] && req.body[field].trim().length < sizedFields[field].min
@@ -147,18 +136,12 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-//this is the username, password, and email we get from the request body of a user input
   let {username, password, email = ''} = req.body;
-    // Username and password come in pre-trimmed, otherwise we throw an error
-    // before this
     email = email.trim();
-
-  // check if user already exists -> throw an error
   return User.find({username})
    .count()
    .then(count => {
      if (count > 0) {
-       // There is an existing user with the same username
        return Promise.reject({
          code: 422,
          reason: 'ValidationError',
@@ -166,8 +149,6 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
          location: 'username'
        });
      }
-      // use hash function for password -> authorization Thinkful
-     // If there is no existing user, hash the password
      return User.hashPassword(password);
    })
    .then(hash => {
@@ -181,10 +162,7 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
      return res.status(201).json(user.serialize());
    })
 
-    //if there is a user, send error
    .catch(err => {
-     // Forward validation errors on to the client, otherwise give a 500
-     // error because something unexpected has happened
      if (err.reason === 'ValidationError') {
        return res.status(err.code).json(err);
      }
@@ -220,4 +198,48 @@ app.post("/api/login", jsonParser, (req, res) => {
 //
 // });
 
-app.listen(8080);
+let server;
+
+// this function connects to our database, then starts the server
+function runServer(databaseUrl, port = PORT) {
+
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
+    });
+  });
+}
+
+// this function closes the server, and returns a promise. we'll
+// use it in our integration tests later.
+function closeServer() {
+  return mongoose.disconnect().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log('Closing server');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+  });
+}
+
+// if server.js is called directly (aka, with `node server.js`), this block
+// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
+if (require.main === module) {
+  runServer(DATABASE_URL).catch(err => console.error(err));
+}
+
+module.exports = { app, runServer, closeServer };
