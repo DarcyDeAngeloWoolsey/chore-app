@@ -35,7 +35,7 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 
 //removed ensureToken as I think jwtAuth with passport will do the job.
 // chores is our protected data
-app.get("/api/Chores", jwtAuth, (req, res) => {
+app.get("/api/Entries", jwtAuth, (req, res) => {
   res.json({
     balanceBook: [
       {

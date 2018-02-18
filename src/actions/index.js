@@ -24,7 +24,7 @@ export const fetchEntriesSuccess = Chores => ({
 
 export const fetchEntries = () => dispatch => {
   console.log("fetch running");
-  fetch(`${API_BASE_URL}/Chores`, {
+  fetch(`${API_BASE_URL}/Entries`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("token")}`
     }
