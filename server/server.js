@@ -8,6 +8,8 @@ const { CLIENT_ORIGIN,  JWT_SECRET, PORT, DATABASE_URL } = require("./config");
 const { API_BASE_URL } = require("../src/config");
 const { ensureToken } = require("./ensureToken.js");
 const {User} = require('./models');
+const { router: authRouter } = require('./authIndex');
+const { router: localStrategy, jwtStrategy } = require('./authIndex');
 
 const app = express();
 const jsonParser = bodyParser.json()
@@ -24,7 +26,16 @@ app.use((req, res, next) => {
     return res.sendStatus(204); }
     return next(); });
 
-app.get("/api/Chores", ensureToken, (req, res) => {
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+app.use('/api/auth/', authRouter);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+//removed ensureToken as I think jwtAuth with passport will do the job.
+
+app.get("/api/Chores", jwtAuth, (req, res) => {
   res.json({
     balanceBook: [
       {
@@ -178,37 +189,17 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
 
 });
 
-
-//this post matches the post in logInActions
 app.post("/api/login", jsonParser, (req, res) => {
-  // check if user already exists
-  // use hash function to match passwords
-  // send auth token as a response
-  //TODO: auth user
-  //add fake user
-
-  // check username, password with mongoDB storage
-  // mongodb client can be used insted of mongoose schema if i want
   const user ={ id: 3 };
-  //the user inside the jwt.sign is the data in jwt.verify
-
   const token = jwt.sign({ user }, JWT_SECRET);
-  //instead of returning the user like normal, just returning the token. Token info is passed to the fetch login in logInACtions
   res.json({
       token
   });
 
 });
 
-//ensureToken is verifying that there is a token. See ensureToken.js. If there isn't, it throws an error.
-// app.get('/api/protected', ensureToken, (req, res) => {
-//
-//
-// });
-
 let server;
 
-// this function connects to our database, then starts the server
 function runServer(databaseUrl  = DATABASE_URL, port = PORT) {
   console.log(databaseUrl);
   return new Promise((resolve, reject) => {
@@ -228,8 +219,6 @@ function runServer(databaseUrl  = DATABASE_URL, port = PORT) {
   });
 }
 
-// this function closes the server, and returns a promise. we'll
-// use it in our integration tests later.
 function closeServer() {
   return mongoose.disconnect().then(() => {
     return new Promise((resolve, reject) => {
@@ -244,8 +233,6 @@ function closeServer() {
   });
 }
 
-// if server.js is called directly (aka, with `node server.js`), this block
-// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
 if (require.main === module) {
   runServer(DATABASE_URL).catch(err => console.error(err));
 }

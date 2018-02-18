@@ -5,6 +5,9 @@ Aside from React App, the following libraries were utilized:
   express
   cors
   thunk
+  passport
+  bcrypt
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
