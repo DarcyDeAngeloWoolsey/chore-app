@@ -15,12 +15,13 @@ mongoose.Promise = global.Promise;
 
 app.use(bodyParser.json());
 
-app.use(
-  cors({
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials": true
-  })
-);
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if(req.method === 'OPTIONS') {
+    return res.sendStatus(204); }
+    return next(); });
 
 app.get("/api/Chores", ensureToken, (req, res) => {
   res.json({
@@ -88,7 +89,7 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-  const explicityTrimmedFields = ['username', 'password'];
+  const explicityTrimmedFields = ['userName', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
@@ -104,7 +105,7 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
 
 
   const sizedFields = {
-    username: {
+    userName: {
       min: 3
     },
     password: {
@@ -136,9 +137,10 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-  let {username, password, email = ''} = req.body;
+  let {userName, password, email = ''} = req.body;
     email = email.trim();
-  return User.find({username})
+    console.log(req.body);
+  return User.find({userName})
    .count()
    .then(count => {
      if (count > 0) {
@@ -146,28 +148,33 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
          code: 422,
          reason: 'ValidationError',
          message: 'Username already taken',
-         location: 'username'
+         location: 'userName'
        });
      }
      return User.hashPassword(password);
    })
    .then(hash => {
+     console.log(userName, email);
      return User.create({
-       username,
+       userName,
        password: hash,
        email
+     })
+     .then(user => {
+       const userObject = user.serialize();
+       console.log(userObject);
+       return res.status(201).json(userObject);
+     })
+
+     .catch(err => {
+       console.log(err);
+       if (err.reason === 'ValidationError') {
+         return res.status(err.code).json(err);
+       }
+       res.status(500).json({code: 500, message: 'Internal api/sign-up server error'});
      });
    })
-   .then(user => {
-     return res.status(201).json(user.serialize());
-   })
 
-   .catch(err => {
-     if (err.reason === 'ValidationError') {
-       return res.status(err.code).json(err);
-     }
-     res.status(500).json({code: 500, message: 'Internal server error'});
-   });
 });
 
 
@@ -179,7 +186,7 @@ app.post("/api/login", jsonParser, (req, res) => {
   //TODO: auth user
   //add fake user
 
-  // check username, password with mongoDB storage
+  // check userName, password with mongoDB storage
   // mongodb client can be used insted of mongoose schema if i want
   const user ={ id: 3 };
   //the user inside the jwt.sign is the data in jwt.verify
@@ -201,8 +208,8 @@ app.post("/api/login", jsonParser, (req, res) => {
 let server;
 
 // this function connects to our database, then starts the server
-function runServer(databaseUrl, port = PORT) {
-
+function runServer(databaseUrl  = DATABASE_URL, port = PORT) {
+  console.log(databaseUrl);
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
       if (err) {
