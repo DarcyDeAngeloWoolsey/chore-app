@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const { CLIENT_ORIGIN,  JWT_SECRET, PORT, DATABASE_URL } = require("./config");
 const { API_BASE_URL } = require("../src/config");
 const { ensureToken } = require("./ensureToken.js");
