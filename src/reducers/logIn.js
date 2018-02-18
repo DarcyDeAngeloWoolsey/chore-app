@@ -1,7 +1,9 @@
 import {
-    AUTH_REQUEST,
-    AUTH_SUCCESS,
-    AUTH_ERROR
+SET_AUTH_TOKEN,
+ CLEAR_AUTH,
+ AUTH_REQUEST,
+ AUTH_SUCCESS,
+ AUTH_ERROR
 } from '../actions/logInActions';
 
 const initialState = {
@@ -11,9 +13,17 @@ const initialState = {
     error: null
 };
 
-
 export const logInReducer = (state = initialState, action) => {
-    if (action.type === AUTH_REQUEST) {
+    if (action.type === SET_AUTH_TOKEN) {
+        return Object.assign({}, state, {
+            authToken: action.authToken
+        });
+    } else if (action.type === CLEAR_AUTH) {
+        return Object.assign({}, state, {
+            authToken: null,
+            currentUser: null
+        });
+    } else if (action.type === AUTH_REQUEST) {
         return Object.assign({}, state, {
             loading: true,
             error: null

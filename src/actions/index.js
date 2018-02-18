@@ -1,4 +1,6 @@
+import {normalizeResponseErrors} from './utils';
 const { API_BASE_URL } = require("../config");
+
 
 export const ADD_ENTRY = "ADD_ENTRY";
 export const addEntry = (
@@ -22,20 +24,26 @@ export const fetchEntriesSuccess = Chores => ({
   Chores
 });
 
-export const fetchEntries = () => dispatch => {
-  console.log("fetch running");
-  fetch(`${API_BASE_URL}/Entries`, {
-    headers: {
-      authorization: `Bearer ${localStorage.getItem("token")}`
-    }
-  })
-    .then(res => {
-      if (!res.ok) {
-        return Promise.reject(res.statusText);
-      }
-      return res.json();
+export const FETCH_ENTRIES_ERROR = 'FETCH_ENTRIES_ERROR';
+export const fetchEntriesError = error => ({
+    type: FETCH_ENTRIES_ERROR,
+    error
+});
+
+
+export const fetchEntries = () => (dispatch, getState) => {
+    const authToken = getState().authToken;
+    return fetch(`${API_BASE_URL}/Entries`, {
+        method: 'GET',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`
+        }
     })
-    .then(Chores => {
-      dispatch(fetchEntriesSuccess(Chores));
-    });
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(({data}) => dispatch(fetchEntriesSuccess(data)))
+        .catch(err => {
+            dispatch(fetchEntriesError(err));
+        });
 };
