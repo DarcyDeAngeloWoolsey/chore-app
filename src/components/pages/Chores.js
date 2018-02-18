@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addChore, fetchChores } from "../../actions/index";
+import { addEntry, fetchEntries } from "../../actions/index";
 
 import ChoresList from "./ChoresList";
 import ChoreUpdate from "./ChoreUpdate";
@@ -10,13 +10,13 @@ import "../Chores.css";
 class Chores extends Component {
   componentDidMount() {
     console.log("fetch Chores component did mount!")
-    this.props.dispatch(fetchChores());
+    this.props.dispatch(fetchEntries());
 
   }
 
-  addChore(choreDate, choreType, choreBanking, choreAmount, choreTotal) {
+  addEntry(choreDate, choreType, choreBanking, choreAmount, choreTotal) {
     this.props.dispatch(
-      addChore(choreDate, choreType, choreBanking, choreAmount, choreTotal)
+      addEntry(choreDate, choreType, choreBanking, choreAmount, choreTotal)
     );
   }
 
@@ -51,7 +51,7 @@ class Chores extends Component {
           </div>
         </div>
         <div className="chore-update">
-          <ChoreUpdate addChore={this.addChore.bind(this)} />
+          <ChoreUpdate addEntry={this.addEntry.bind(this)} />
         </div>
       </div>
     );
@@ -59,7 +59,7 @@ class Chores extends Component {
 }
 
 const mapStateToProps = state => ({
-  balanceBook: state.addChoreReducer.balanceBook
+  balanceBook: state.addEntryReducer.balanceBook
 });
 
 export default connect(mapStateToProps)(Chores);

@@ -4,8 +4,8 @@ const initialState = {
   balanceBook: []
 };
 
-export const addChoreReducer = (state = initialState, action) => {
-  if (action.type === actions.ADD_CHORE) {
+export const addEntryReducer = (state = initialState, action) => {
+  if (action.type === actions.ADD_ENTRY) {
     return Object.assign({}, state, {
       balanceBook: [
         ...state.balanceBook,
@@ -18,7 +18,7 @@ export const addChoreReducer = (state = initialState, action) => {
         }
       ]
     });
-  } else if (action.type === actions.FETCH_CHORES_SUCCESS) {
+  } else if (action.type === actions.FETCH_ENTRIES_SUCCESS) {
     return action.Chores;
   }
   return state;

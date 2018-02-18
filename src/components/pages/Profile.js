@@ -132,7 +132,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  balanceBook: state.addChoreReducer.balanceBook
+  balanceBook: state.addEntryReducer.balanceBook
 });
 
 export default withRouter(connect(mapStateToProps)(Profile));

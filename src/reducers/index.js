@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
 import {userInputReducer} from "./userInput";
-import { addChoreReducer } from "./addChores";
+import { addEntryReducer } from "./addEntry";
 import {logInReducer} from "./logIn";
 
-export default combineReducers({ logInReducer, userInputReducer, addChoreReducer });
+export default combineReducers({ logInReducer, userInputReducer, addEntryReducer });

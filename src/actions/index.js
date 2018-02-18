@@ -1,14 +1,14 @@
 const { API_BASE_URL } = require("../config");
 
-export const ADD_CHORE = "ADD_CHORE";
-export const addChore = (
+export const ADD_ENTRY = "ADD_ENTRY";
+export const addEntry = (
   choreDate,
   choreType,
   choreBanking,
   choreAmount,
   choreTotal
 ) => ({
-  type: ADD_CHORE,
+  type: ADD_ENTRY,
   choreDate,
   choreType,
   choreBanking,
@@ -16,13 +16,13 @@ export const addChore = (
   choreTotal
 });
 
-export const FETCH_CHORES_SUCCESS = "FETCH_CHORES_SUCCESS";
-export const fetchChoresSuccess = Chores => ({
-  type: FETCH_CHORES_SUCCESS,
+export const FETCH_ENTRIES_SUCCESS = "FETCH_ENTRIES_SUCCESS";
+export const fetchEntriesSuccess = Chores => ({
+  type: FETCH_ENTRIES_SUCCESS,
   Chores
 });
 
-export const fetchChores = () => dispatch => {
+export const fetchEntries = () => dispatch => {
   console.log("fetch running");
   fetch(`${API_BASE_URL}/Chores`, {
     headers: {
@@ -36,6 +36,6 @@ export const fetchChores = () => dispatch => {
       return res.json();
     })
     .then(Chores => {
-      dispatch(fetchChoresSuccess(Chores));
+      dispatch(fetchEntriesSuccess(Chores));
     });
 };

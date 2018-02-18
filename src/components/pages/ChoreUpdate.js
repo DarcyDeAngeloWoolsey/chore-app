@@ -33,7 +33,7 @@ class ChoreUpdate extends Component {
     });
     let choreTotal = newTotal + add;
 
-    this.props.addChore(
+    this.props.addEntry(
       choreDate,
       choreType.trim(),
       choreBanking,
@@ -111,7 +111,7 @@ class ChoreUpdate extends Component {
   }
 }
 const mapStateToProps = state => ({
-  balanceBook: state.addChoreReducer.balanceBook
+  balanceBook: state.addEntryReducer.balanceBook
 });
 
 export default connect(mapStateToProps)(ChoreUpdate);

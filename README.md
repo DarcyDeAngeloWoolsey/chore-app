@@ -7,6 +7,7 @@ Aside from React App, the following libraries were utilized:
   thunk
   passport
   bcrypt
+  jwt-decode
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
