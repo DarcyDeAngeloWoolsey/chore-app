@@ -2,12 +2,11 @@ import {normalizeResponseErrors} from './utils';
 const { API_BASE_URL } = require("../config");
 
 export const USER_INPUT = "USER_INPUT";
-export const userInput = (userName, email, password, loggedIn) => ({
+export const userInput = (username, email, password, loggedIn) => ({
   type: USER_INPUT,
-  userName,
+  username,
   email,
-  password,
-  loggedIn,
+  password
 });
 
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
@@ -32,7 +31,7 @@ export const fetchUser = () => dispatch => {
 };
 
 
-export const registerUser = (userName, email, password) => dispatch => {
+export const registerUser = (username, email, password) => dispatch => {
   console.log("registered user running");
     return fetch(`${API_BASE_URL}/sign-up`, {
         method: 'POST',
@@ -40,12 +39,13 @@ export const registerUser = (userName, email, password) => dispatch => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          userName,
+          username,
           email,
           password
         })
     })
         .then(res => normalizeResponseErrors(res))
+        .then(console.log("stuff"))
         .then(res => res.json())
         // .catch(err => {
         //     const {reason, message, location} = err;

@@ -1,14 +1,14 @@
 import * as actions from "../actions/index";
 
 const initialState = {
-  choreList: []
+  balanceBook: []
 };
 
 export const addChoreReducer = (state = initialState, action) => {
   if (action.type === actions.ADD_CHORE) {
     return Object.assign({}, state, {
-      choreList: [
-        ...state.choreList,
+      balanceBook: [
+        ...state.balanceBook,
         {
           choreDate: action.choreDate,
           choreType: action.choreType,

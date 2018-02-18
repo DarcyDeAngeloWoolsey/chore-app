@@ -20,7 +20,7 @@ class ChoreBox extends Component {
     this.state={
       auth: [
         {
-          userName: '',
+          username: '',
           password: ''
         }
       ]
@@ -32,26 +32,27 @@ class ChoreBox extends Component {
     this.props.dispatch(fetchUser());
   }
 
-  userSubmit(userName, email, password, loggedIn) {
-    this.props.dispatch(registerUser(userName, email, password, loggedIn));
+  userSubmit(username, email, password) {
+    this.props.dispatch(registerUser(username, email, password));
+    console.log(username, email, password);
   }
 
   //need to find how we connect this to surver
   //i believe I EITHER dispatch or setState. But if I setState do I even need to make a post request?
-  logInSubmit(userName, password, loggedIn) {
-    this.props.dispatch(login(userName, password, loggedIn));
-      this.setState({userName: userName});
-      console.log("this is the logged userName " + userName);
+  logInSubmit(username, password, loggedIn) {
+    this.props.dispatch(login(username, password, loggedIn));
+      this.setState({username: username});
+      console.log("this is the logged username " + username);
   }
 
 
   handleClick(event) {
     event.preventDefault();
-    this.setState({ userName: "", loggedIn: false });
+    this.setState({ username: "", loggedIn: false });
   }
 
   render() {
-    let currentUser = this.state.userName;
+    let currentUser = this.state.username;
     console.log(currentUser);
 
     const users = this.props.users.map((data, index) => (
@@ -61,7 +62,7 @@ class ChoreBox extends Component {
 
     const user = this.props.users.map((data, index) => (
       <div className="profile-name inline-block" key={index}>
-        <UserName userName={data.userName} />
+        <UserName username={data.username} />
       </div>
     ));
 

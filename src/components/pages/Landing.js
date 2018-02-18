@@ -16,27 +16,27 @@ class Landing extends Component {
 
   handleCreateUserSubmit(event) {
     event.preventDefault();
-    let userName;
+    let username;
     let email;
     let password;
-    userName = event.target.userName.value;
+    username = event.target.username.value;
     email = event.target.email.value;
     password = event.target.password.value;
-    console.log(userName, email, password);
+    console.log(username, email, password);
     //instead of trimming here, we will send an error on the backend, telling them they cannot trim.
-    this.props.registerUser(userName, email.trim(), password);
+    this.props.registerUser(username, email.trim(), password);
     this.props.history.push("/profile");
     console.log(this.props.history);
   }
 
   handleLogInSubmit(event) {
     event.preventDefault();
-    let userName;
+    let username;
     let password;
-    userName = event.target.userName.value;
+    username = event.target.username.value;
     password = event.target.password.value;
-    console.log(userName, password);
-    this.props.login(userName.trim(), password.trim());
+    console.log(username, password);
+    this.props.login(username.trim(), password.trim());
   }
 
 
@@ -53,13 +53,13 @@ class Landing extends Component {
       <div>
         <form id="createForm" onSubmit={this.handleCreateUserSubmit.bind(this)}>
           <div className="col-12-xs inline-block">
-            <label htmlFor="userName">User Name</label>
+            <label htmlFor="username">User Name</label>
             <br />
             <input
               type="text"
-              name="userName"
+              name="username"
               placeholder="$Mr.MoneyBags$"
-              ref={input => (this.userName = input)}
+              ref={input => (this.username = input)}
               required
             />
           </div>
@@ -101,13 +101,13 @@ class Landing extends Component {
       <div>
         <form id="logInForm" onSubmit={this.handleLogInSubmit.bind(this)}>
           <div className="col-12-xs inline-block">
-            <label htmlFor="userName">User Name</label>
+            <label htmlFor="username">User Name</label>
             <br />
             <input
               type="text"
-              name="userName"
+              name="username"
               placeholder="$Mr.MoneyBags$"
-              ref={input => (this.userName = input)}
+              ref={input => (this.username = input)}
               required
             />
           </div>

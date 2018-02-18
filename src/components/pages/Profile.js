@@ -34,7 +34,7 @@ class Profile extends Component {
     let count = 0;
     let level = 1;
 
-    this.props.choreList.map((chores, index) => {
+    this.props.balanceBook.map((chores, index) => {
       if (chores.choreBanking === "Deposit") {
         count++;
         if (count % 5 === 0) {
@@ -132,7 +132,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  choreList: state.addChoreReducer.choreList
+  balanceBook: state.addChoreReducer.balanceBook
 });
 
 export default withRouter(connect(mapStateToProps)(Profile));

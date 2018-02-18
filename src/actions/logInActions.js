@@ -18,7 +18,7 @@ export const authError = error => ({
     error
 });
 
-export const login = (userName, password) => dispatch => {
+export const login = (username, password) => dispatch => {
   console.log("login action running");
     dispatch(authRequest());
     return (
@@ -28,7 +28,7 @@ export const login = (userName, password) => dispatch => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                userName,
+                username,
                 password
             })
         })

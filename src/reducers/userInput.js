@@ -1,6 +1,6 @@
 import * as actions from "../actions/userInputActions";
 
-//right now we are creating a user and then sending back the userName
+//right now we are creating a user and then sending back the username
 //we will need a unique ID generator
 
 const initialState = {
@@ -13,7 +13,7 @@ export const userInputReducer = (state = initialState, action) => {
       users: [
         ...state.users,
         {
-          userName: action.userName,
+          username: action.username,
           email: action.email,
           password: action.password,
           loggedIn: true

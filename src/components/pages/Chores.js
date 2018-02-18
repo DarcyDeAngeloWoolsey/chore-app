@@ -9,7 +9,9 @@ import "../Chores.css";
 
 class Chores extends Component {
   componentDidMount() {
+    console.log("fetch Chores component did mount!")
     this.props.dispatch(fetchChores());
+
   }
 
   addChore(choreDate, choreType, choreBanking, choreAmount, choreTotal) {

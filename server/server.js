@@ -48,13 +48,13 @@ app.get("/api/sign-up", (req, res) => {
   res.json({
     users: [
       {
-        userName: "Serina",
+        username: "Serina",
         email: "girly@gmail.com",
         password: 555,
         loggedIn: true
       },
       {
-        userName: "Darcy",
+        username: "Darcy",
         email: "girly@gmail.com",
         password: 555,
         loggedIn: true
@@ -64,7 +64,7 @@ app.get("/api/sign-up", (req, res) => {
 });
 
 app.post("/api/sign-up", jsonParser, (req, res) => {
-  const requiredFields = ['userName', 'password'];
+  const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
   if (missingField) {
     return res.status(422).json({
@@ -75,7 +75,7 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-  const stringFields = ['userName', 'password', 'email'];
+  const stringFields = ['username', 'password', 'email'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
   );
@@ -89,7 +89,7 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-  const explicityTrimmedFields = ['userName', 'password'];
+  const explicityTrimmedFields = ['username', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
@@ -105,7 +105,7 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
 
 
   const sizedFields = {
-    userName: {
+    username: {
       min: 3
     },
     password: {
@@ -137,10 +137,10 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
     });
   }
 
-  let {userName, password, email = ''} = req.body;
+  let {username, password, email = ''} = req.body;
     email = email.trim();
     console.log(req.body);
-  return User.find({userName})
+  return User.find({username})
    .count()
    .then(count => {
      if (count > 0) {
@@ -148,15 +148,15 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
          code: 422,
          reason: 'ValidationError',
          message: 'Username already taken',
-         location: 'userName'
+         location: 'username'
        });
      }
      return User.hashPassword(password);
    })
    .then(hash => {
-     console.log(userName, email);
+     console.log(username, email);
      return User.create({
-       userName,
+       username,
        password: hash,
        email
      })
@@ -186,7 +186,7 @@ app.post("/api/login", jsonParser, (req, res) => {
   //TODO: auth user
   //add fake user
 
-  // check userName, password with mongoDB storage
+  // check username, password with mongoDB storage
   // mongodb client can be used insted of mongoose schema if i want
   const user ={ id: 3 };
   //the user inside the jwt.sign is the data in jwt.verify

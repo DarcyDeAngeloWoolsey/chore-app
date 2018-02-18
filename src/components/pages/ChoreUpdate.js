@@ -25,7 +25,7 @@ class ChoreUpdate extends Component {
     let choreAmount = this.choreAmount.value;
     let add = parseFloat(this.choreAmount.value);
     let newTotal = 0;
-    this.props.choreList.map((chores, index) => {
+    this.props.balanceBook.map((chores, index) => {
       let unparsed = chores.choreAmount;
       let parsed = parseFloat(unparsed);
       newTotal = newTotal + parsed;
@@ -111,7 +111,7 @@ class ChoreUpdate extends Component {
   }
 }
 const mapStateToProps = state => ({
-  choreList: state.addChoreReducer.choreList
+  balanceBook: state.addChoreReducer.balanceBook
 });
 
 export default connect(mapStateToProps)(ChoreUpdate);
