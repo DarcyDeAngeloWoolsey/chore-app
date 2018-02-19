@@ -166,8 +166,6 @@ class Landing extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  users: state.userInputReducer.users
-});
 
-export default withRouter(connect(mapStateToProps)(Landing));
+
+export default withRouter(connect()(Landing));

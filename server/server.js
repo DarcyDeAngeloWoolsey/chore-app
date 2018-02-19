@@ -7,7 +7,7 @@ const passport = require('passport');
 const { CLIENT_ORIGIN,  JWT_SECRET, PORT, DATABASE_URL } = require("./config");
 const { API_BASE_URL } = require("../src/config");
 const { ensureToken } = require("./ensureToken.js");
-const {User} = require('./models');
+const {User, Record} = require('./models');
 const { router: authRouter } = require('./authIndex');
 const { router: localStrategy, jwtStrategy } = require('./authIndex');
 
@@ -35,45 +35,39 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 
 //removed ensureToken as I think jwtAuth with passport will do the job.
 // chores is our protected data
-app.get("/api/Entries", jwtAuth, (req, res) => {
-  res.json({
-    balanceBook: [
-      {
-        choreDate: "January 21 2018",
-        choreType: "Wash Dishes",
-        choreBanking: "Deposit",
-        choreAmount: 5.0,
-        choreTotal: 5.0
-      },
-      {
-        choreDate: "January 22 2018",
-        choreType: "Take out Trash",
-        choreBanking: "Deposit",
-        choreAmount: 3.0,
-        choreTotal: 8.0
-      }
-    ]
-  });
+
+//find all entries as first step. Then find all entries based on user as next step
+app.get("/api/balanceBook",  (req, res) => {
+    Record
+        .findOne()
+        .then(records => {
+          console.log("here is one entry " + records);
+            res.json(records)
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal server error'
+            })
+        });
 });
 
-app.get("/api/sign-up", (req, res) => {
-  res.json({
-    users: [
-      {
-        username: "Serina",
-        email: "girly@gmail.com",
-        password: 555,
-        loggedIn: true
-      },
-      {
-        username: "Darcy",
-        email: "girly@gmail.com",
-        password: 555,
-        loggedIn: true
-      }
-    ]
-  });
-});
+
+app.post("/api/balanceBook", jsonParser, (req, res) => {
+  let {choreDate, choreType, choreBanking, choreTotal, choreAmount} = req.body;
+  return Record.create({
+    choreDate,
+    choreType,
+    choreBanking,
+    choreAmount,
+    choreTotal
+  })
+  .then(record => {
+    const recordObject = record.serialize();
+    console.log(recordObject);
+    return res.status(201).json(recordObject);
+  })
+})
 
 app.post("/api/sign-up", jsonParser, (req, res) => {
   const requiredFields = ['username', 'password'];
@@ -189,14 +183,14 @@ app.post("/api/sign-up", jsonParser, (req, res) => {
 
 });
 
-app.post("/api/login", jsonParser, (req, res) => {
-  const user ={ id: 3 };
-  const token = jwt.sign({ user }, JWT_SECRET);
-  res.json({
-      token
-  });
-
-});
+// app.post("/api/login", jsonParser, (req, res) => {
+//   const user ={ id: 3 };
+//   const token = jwt.sign({ user }, JWT_SECRET);
+//   res.json({
+//       token
+//   });
+//
+// });
 
 let server;
 

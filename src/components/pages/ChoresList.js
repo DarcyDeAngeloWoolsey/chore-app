@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ChoresList(props) {
   return (
-    <tr className="balanceBook">
+    <tr className="records">
       <td className="chore-date col-5">{props.choreDate}</td>
       <td className="chore-type col-5">{props.choreType}</td>
       <td className="chore-banking col-5">{props.choreBanking}</td>

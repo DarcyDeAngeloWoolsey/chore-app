@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addEntry, fetchEntries } from "../../actions/index";
+import { addEntry, fetchEntries } from "../../actions/entryActions";
 
 import ChoresList from "./ChoresList";
 import ChoreUpdate from "./ChoreUpdate";

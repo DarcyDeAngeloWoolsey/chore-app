@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { userInput, fetchUser, registerUser} from "../../actions/userInputActions";
+import { registerUser} from "../../actions/userInputActions";
+
+//when we set up userInput reducer to get currentUser we can use this
+//import { userInput, fetchUser } from "../../actions/userInputActions";
 import { login} from "../../actions/logInActions";
 
 import { Redirect } from 'react-router-dom';
@@ -27,10 +30,10 @@ class ChoreBox extends Component {
     }
 }
 
-
-  componentDidMount() {
-    this.props.dispatch(fetchUser());
-  }
+//when we set up userInput reducer to get currentUser we can use this
+  // componentDidMount() {
+  //   this.props.dispatch(fetchUser());
+  // }
 
   userSubmit(username, email, password) {
     this.props.dispatch(registerUser(username, email, password));
@@ -55,39 +58,40 @@ class ChoreBox extends Component {
     let currentUser = this.state.username;
     console.log(currentUser);
 
-    const users = this.props.users.map((data, index) => (
-        {...data}
-    ));
-    console.log(users);
+//when we set up userInput reducer to get currentUser we can use this
+    // const users = this.props.users.map((data, index) => (
+    //     {...data}
+    // ));
+    // console.log(users);
+    //
+    // const user = this.props.users.map((data, index) => (
+    //   <div className="profile-name inline-block" key={index}>
+    //     <UserName username={data.username} />
+    //   </div>
+    // ));
 
-    const user = this.props.users.map((data, index) => (
-      <div className="profile-name inline-block" key={index}>
-        <UserName username={data.username} />
-      </div>
-    ));
+    // this.props.users.map((data, index) => console.log(data.loggedIn));
 
-    this.props.users.map((data, index) => console.log(data.loggedIn));
-
-    let logged;
-    let logStatus;
-
-    this.props.users.map((data, index) => {
-      if (data.loggedIn) {
-        console.log("data.loggedIn is " + data.loggedIn);
-        logStatus = data.loggedIn;
-      }
-    });
-  console.log("the log status is " + logStatus);
-    if (logStatus) {
-      logged = (
-        <a
-          className="log-link inline-block"
-          onClick={this.handleClick.bind(this)}
-        >
-          Log out
-        </a>
-      );
-    }
+  //   let logged;
+  //   let logStatus;
+  //
+  //   this.props.users.map((data, index) => {
+  //     if (data.loggedIn) {
+  //       console.log("data.loggedIn is " + data.loggedIn);
+  //       logStatus = data.loggedIn;
+  //     }
+  //   });
+  // console.log("the log status is " + logStatus);
+  //   if (logStatus) {
+  //     logged = (
+  //       <a
+  //         className="log-link inline-block"
+  //         onClick={this.handleClick.bind(this)}
+  //       >
+  //         Log out
+  //       </a>
+  //     );
+  //   }
 
     const logOut = (
       <a
@@ -126,7 +130,8 @@ class ChoreBox extends Component {
           <header className="App-header">
             <h1 className="App-title">ChoreTrek</h1>
             {logOut}
-            {user}
+            {/*//when we set up userInput reducer to get currentUser we can use this
+            // {user}*/}
           </header>
           <main>
           <Switch>
@@ -144,8 +149,11 @@ class ChoreBox extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  users: state.userInputReducer.users
-});
+//when we set up the userInput Reducer to show the current user, we can use this
+// const mapStateToProps = state => ({
+//   users: state.userInputReducer.users
+// });
 
-export default connect(mapStateToProps)(ChoreBox);
+// export default connect(mapStateToProps)(ChoreBox);
+
+ export default connect()(ChoreBox);
