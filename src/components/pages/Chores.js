@@ -21,11 +21,15 @@ class Chores extends Component {
   }
 
   render() {
-    const list = this.props.balanceBook.map((chores, index) => (
-      <tbody key={index}>
-        <ChoresList {...chores} />
-      </tbody>
-    ));
+    let choreTotal = 0;
+    const list = this.props.balanceBook.map((chores, index) => {
+      choreTotal = choreTotal + chores.choreAmount;
+      return (
+        <tbody key={index}>
+          <ChoresList {...chores} choreTotal={choreTotal} />
+        </tbody>
+      )
+    });
 
     return (
       <div>

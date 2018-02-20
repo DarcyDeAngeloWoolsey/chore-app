@@ -55,7 +55,7 @@ export const login = (username, password) => dispatch => {
                 password
             })
         })
-
+            .then(console.log("login fetch running " + username))
             .then(res => normalizeResponseErrors(res))
             .then(res => res.json())
             .then(({authToken}) => storeAuthInfo(authToken, dispatch))

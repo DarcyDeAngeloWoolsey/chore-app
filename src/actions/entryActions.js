@@ -54,11 +54,9 @@ export const fetchEntries = () => (dispatch, getState) => {
           //  Authorization: `Bearer ${authToken}`
         }
     })
-        .then(console.log("sdfghhcgfghjgfhjkhgfhjkhgfhjkhggfhjkhgfdghjggfdghjgfdghjgfd"))
-        .then(res => console.log((res.body)))
          .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({records}) => dispatch(fetchEntriesSuccess(records)))
+        .then((records) => dispatch(fetchEntriesSuccess(records)))
         .catch(err => {
             dispatch(fetchEntriesError(err));
         });

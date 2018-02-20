@@ -36,10 +36,11 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 //removed ensureToken as I think jwtAuth with passport will do the job.
 // chores is our protected data
 
-//find all entries as first step. Then find all entries based on user as next step
+//Then find all entries based on user as next step
+//in .find() will need a userid: ''
 app.get("/api/balanceBook",  (req, res) => {
     Record
-        .findOne()
+        .find()
         .then(records => {
           console.log("here is one entry " + records);
             res.json(records)
