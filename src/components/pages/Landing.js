@@ -37,6 +37,8 @@ class Landing extends Component {
     password = event.target.password.value;
     console.log(username, password);
     this.props.login(username.trim(), password.trim());
+    this.props.history.push("/profile");
+    console.log(this.props.history);
   }
 
 

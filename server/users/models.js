@@ -37,6 +37,24 @@ RecordSchema.methods.serialize = function() {
   };
 };
 
+const LoginSchema = mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+});
+
+LoginSchema.methods.serialize = function() {
+  return {
+    username: this.username || '',
+    email: this.email|| ''
+  };
+};
+
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
@@ -69,5 +87,7 @@ UserSchema.statics.hashPassword = function(password) {
 
 const Record = mongoose.model('Record', RecordSchema);
 const User = mongoose.model('User', UserSchema);
+const Login = mongoose.model('Login', LoginSchema);
 
-module.exports = {User, Record};
+
+module.exports = {User, Record, Login};

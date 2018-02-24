@@ -1,4 +1,5 @@
 import {normalizeResponseErrors} from './utils';
+import {SubmissionError} from 'redux-form';
 const { API_BASE_URL } = require("../config");
 
 export const ADD_ENTRY = "ADD_ENTRY";
@@ -19,17 +20,17 @@ export const addEntry = ( choreDate, choreType, choreBanking, choreAmount, chore
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        // .catch(err => {
-        //     const {reason, message, location} = err;
-        //     if (reason === 'ValidationError') {
+         .catch(err => {
+            const {reason, message, location} = err;
+             if (reason === 'ValidationError') {
         //         // Convert ValidationErrors into SubmissionErrors for Redux Form
-        //         return Promise.reject(
-        //             new SubmissionError({
-        //                 [location]: message
-        //             })
-        //         );
-        //     }
-        // });
+                return Promise.reject(
+                    new SubmissionError({
+                        [location]: message
+                   })
+                );
+            }
+         });
 };
 
 export const FETCH_ENTRIES_SUCCESS = "FETCH_ENTRIES_SUCCESS";

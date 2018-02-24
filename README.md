@@ -8,6 +8,7 @@ Aside from React App, the following libraries were utilized:
   passport
   bcrypt
   jwt-decode
+  redux-form
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

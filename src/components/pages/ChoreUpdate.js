@@ -36,8 +36,6 @@ class ChoreUpdate extends Component {
     this.props.addEntry(
       choreDate,
       choreType.trim(),
-      choreBanking,
-      choreAmount,
       choreTotal.toFixed(2)
     );
 

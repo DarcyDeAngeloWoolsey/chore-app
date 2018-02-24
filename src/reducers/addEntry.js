@@ -16,7 +16,7 @@ const initialState = {
 //fetch all first, add new ones to database with a post/update, then show the new ones(send to db and render at the same time without doing another fetch).
 
 export const addEntryReducer = (state = initialState, action) => {
-  if (action.type === FETCH_ENTRIES_SUCCESS) {
+ if (action.type === FETCH_ENTRIES_SUCCESS) {
       return Object.assign({}, state, {
         balanceBook: action.records,
           error: null

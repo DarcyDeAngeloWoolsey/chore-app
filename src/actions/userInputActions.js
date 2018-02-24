@@ -1,4 +1,5 @@
 import {normalizeResponseErrors} from './utils';
+import {SubmissionError} from 'redux-form';
 const { API_BASE_URL } = require("../config");
 
 //below const for userInput and FetchUser is not needed, but keeping just in case useful
@@ -12,26 +13,26 @@ const { API_BASE_URL } = require("../config");
 //   password
 // });
 //
-// export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-// export const fetchUserSuccess = User => ({
-//   type: FETCH_USER_SUCCESS,
-//   User
-// });
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const fetchUserSuccess = User => ({
+  type: FETCH_USER_SUCCESS,
+  User
+});
 
-//this will fetch from the auth array in server get request.
-// export const fetchUser = () => dispatch => {
-//   console.log("fetch user running");
-//   fetch(`${API_BASE_URL}/home/sign-up`)
-//     .then(res => {
-//       if (!res.ok) {
-//         return Promise.reject(res.statusText);
-//       }
-//       return res.json();
-//     })
-//     .then(User => {
-//       dispatch(fetchUserSuccess(User));
-//     });
-// };
+// this will fetch from the auth array in server get request.
+export const fetchUser = () => dispatch => {
+  console.log("fetch user running");
+  fetch(`${API_BASE_URL}/home/sign-up`)
+    .then(res => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(User => {
+      dispatch(fetchUserSuccess(User));
+    });
+};
 
 
 export const registerUser = (username, email, password) => dispatch => {

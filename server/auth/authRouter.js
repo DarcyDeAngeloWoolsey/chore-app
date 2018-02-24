@@ -3,21 +3,29 @@ const express = require('express');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require("./config");
-const config = require('./config');
+const config = require('../config');
+const { JWT_SECRET } = require("../config");
+
 const router = express.Router();
 
+
+
 const createAuthToken = function(user) {
-  return jwt.sign({user}, JWT_SECRET, {
+  return jwt.sign({user}, config.JWT_SECRET, {
     subject: user.username,
+    expiresIn: config.JWT_EXPIRY,
     algorithm: 'HS256'
   });
 };
 
+//check this is what we want for the session. raksonibs blog has something else
+//When session support is not necessary, it can be safely disabled by setting the session option to false.
 const localAuth = passport.authenticate('local', {session: false});
+
 router.use(bodyParser.json());
 // The user provides a username and password to login
 router.post('/login', localAuth, (req, res) => {
+  console.log("router.post is running");
   const authToken = createAuthToken(req.user.serialize());
   res.json({authToken});
 });
